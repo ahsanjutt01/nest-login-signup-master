@@ -130,7 +130,7 @@ export class Order {
     type: 'datetime',
     default: () => 'NOW()',
   })
-  approved_at: string;
+  approved_at: Date;
 
   @Column({
     name: 'created_at',
@@ -138,7 +138,7 @@ export class Order {
     type: 'datetime',
     default: () => 'NOW()',
   })
-  created_at: string;
+  created_at: Date;
 
   @Column({
     name: 'synced_at',
@@ -146,7 +146,7 @@ export class Order {
     type: 'datetime',
     default: () => 'NOW()',
   })
-  synced_at: string;
+  synced_at: Date;
 
   @Column({
     name: 'updated_at',
@@ -154,7 +154,7 @@ export class Order {
     type: 'datetime',
     default: () => 'NOW()',
   })
-  updated_at: string;
+  updated_at: Date;
 
   @Column({
     name: 'updated_by',
@@ -180,7 +180,7 @@ export class Order {
     type: 'datetime',
     default: () => 'NOW()',
   })
-  processed_at: string;
+  processed_at: Date;
 
   @Column({
     name: 'processed_by',
@@ -200,7 +200,7 @@ export class Order {
     type: 'datetime',
     default: () => 'NOW()',
   })
-  dispatched_at: string;
+  dispatched_at: Date;
 
   @Column({
     name: 'completed_by_dist',
