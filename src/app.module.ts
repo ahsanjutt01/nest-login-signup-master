@@ -10,10 +10,11 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
+        name: 'wherehouse_db',
         type: 'mysql',
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
@@ -21,8 +22,21 @@ import { ConfigModule } from '@nestjs/config';
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         entities: entities,
-        synchronize: true // DO NOT TRUE IT IN PRODUCTION. This option migrates any new schema on app launch
-      })
+        synchronize: true, // DO NOT TRUE IT IN PRODUCTION. This option migrates any new schema on app launch
+      }),
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        name: 'shahi',
+        type: 'mysql',
+        host: process.env.DB_HOST_2,
+        port: process.env.DB_PORT,
+        username: process.env.DB_USER_2,
+        password: process.env.DB_USER_SHAHI_PWD,
+        database: process.env.DB_NAME_SHAHI,
+        entities: entities,
+        synchronize: false, // DO NOT TRUE IT IN PRODUCTION SHAHI. This option migrates any new schema on app launch
+      }),
     }),
     OrdersModule,
   ],
@@ -30,6 +44,8 @@ import { ConfigModule } from '@nestjs/config';
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
-    }, AppService]
+    },
+    AppService,
+  ],
 })
-export class AppModule { }
+export class AppModule {}
