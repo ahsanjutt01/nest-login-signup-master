@@ -38,8 +38,8 @@ import TerritoryAssignmentNeighbourhood from './territoryAssignmentNeighbourhood
 import TerritoryManagement from './territoryManagement';
 
 const entities = [
-  EmployeesInfo,
   OrderContent,
+  EmployeesInfo,
   Order,
   bookedOrderContent,
   DistributorReturnedProduct,

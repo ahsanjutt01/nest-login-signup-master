@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersModule } from './modules/orders/orders.module';
 import entities from './entities/exportedEntities';
 import { ConfigModule } from '@nestjs/config';
+import OrderContent from './entities/orderContent';
+import OrderModule from './modules/shahi/order/order.module';
 
 @Module({
   imports: [
@@ -26,8 +28,8 @@ import { ConfigModule } from '@nestjs/config';
       }),
     }),
     TypeOrmModule.forRootAsync({
+      name: 'shahi',
       useFactory: () => ({
-        name: 'shahi',
         type: 'mysql',
         host: process.env.DB_HOST_2,
         port: process.env.DB_PORT,
@@ -39,6 +41,7 @@ import { ConfigModule } from '@nestjs/config';
       }),
     }),
     OrdersModule,
+    OrderModule,
   ],
   providers: [
     {
@@ -47,5 +50,6 @@ import { ConfigModule } from '@nestjs/config';
     },
     AppService,
   ],
+  controllers: [],
 })
 export class AppModule {}

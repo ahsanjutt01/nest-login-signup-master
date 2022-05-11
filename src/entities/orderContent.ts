@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { ItemStatus } from './enums/itemStatus';
 // TODO: relationship
 @Entity({
@@ -12,24 +12,28 @@ export default class OrderContent {
     name: 'order_id',
     nullable: true,
   })
+  @Index()
   order_id: number;
 
   @Column({
     name: 'pref_id',
     nullable: true,
   })
+  @Index()
   pref_id: number;
 
   @Column({
     name: 'item_quantity_booker',
     nullable: true,
   })
+  @Index()
   item_quantity_booker: number;
 
   @Column({
     name: 'item_quantity_updated',
     nullable: true,
   })
+  @Index()
   item_quantity_updated: number;
 
   @Column({
@@ -142,6 +146,7 @@ export default class OrderContent {
     name: 'parent_unit_id',
     nullable: true,
   })
+  @Index()
   parent_unit_id: number;
   @Column({
     name: 'parent_brand_id',
@@ -157,6 +162,7 @@ export default class OrderContent {
     name: 'parent_qty_sold',
     nullable: true,
   })
+  @Index()
   parent_qty_sold: number;
   @Column({
     name: 'parent_value_sold',
@@ -167,6 +173,7 @@ export default class OrderContent {
     name: 'final_price',
     nullable: true,
   })
+  @Index()
   final_price: number;
   @Column({
     name: 'is_return',
