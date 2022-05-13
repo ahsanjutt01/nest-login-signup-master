@@ -10,6 +10,8 @@ import RetailersDetail from 'src/entities/retailersDetail';
 import { RetailerDetailService } from './shahi/retailer-detail/retailer-detail.service';
 import RouteAssignment from 'src/entities/routeAssignment';
 import { RouteAssignmentService } from './shahi/route-assignment/route-assignment.service';
+import { EmployeeInfoService } from './shahi/employee-info/employee-info.service';
+import EmployeesInfo from 'src/entities/EmployeesInfo';
 
 @Injectable()
 export class OrdersService {
@@ -20,12 +22,16 @@ export class OrdersService {
     private readonly shahiVisitMarkService: VisitMarkService,
     private readonly shahiRetailerDetailService: RetailerDetailService,
     private readonly shahiRouteAssignmentService: RouteAssignmentService,
+    private readonly shahiEmployeeInfoService: EmployeeInfoService,
     @InjectRepository(VisitsMark)
     private readonly repoVisitMark: Repository<VisitsMark>,
     @InjectRepository(RetailersDetail)
     private readonly retailersDetailRepo: Repository<RetailersDetail>,
     @InjectRepository(RouteAssignment)
     private readonly RouteAssignmentRepo: Repository<RouteAssignment>,
+
+    @InjectRepository(EmployeesInfo)
+    private readonly EmployeesInfoRepo: Repository<EmployeesInfo>,
   ) {}
   async getOrders(): Promise<OrderContent[]> {
     // console.log('getOrders =>');
@@ -116,6 +122,21 @@ export class OrdersService {
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
       await this.RouteAssignmentRepo.save(chunks);
+    }
+    console.log('save ends ', new Date());
+    return null;
+  }
+
+  async migrateEmployeeInfo(): Promise<RetailersDetail[]> {
+    const data = await this.shahiEmployeeInfoService.getAll();
+    console.log(data.length);
+    const length = data.length;
+    const chunkSize = 1000;
+    console.log('save starts ', new Date());
+
+    for (let i = 0; i < length; i += chunkSize) {
+      const chunks = data.slice(i, i + chunkSize);
+      await this.EmployeesInfoRepo.save(chunks);
     }
     console.log('save ends ', new Date());
     return null;

@@ -69,4 +69,9 @@ export class OrdersController {
   async routeAssingmentMigration() {
     return await this.orderService.migrateRouteAssignment();
   }
+
+  @Get('migrateEmployeeInfo')
+  async migrateEmployeeInfo() {
+    return await this.orderService.migrateEmployeeInfo();
+  }
 }

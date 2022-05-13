@@ -1,10 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 // TODO: relationship
 @Entity({
   name: 'employees_info',
 })
 export default class EmployeesInfo {
+  @Index()
   @PrimaryGeneratedColumn()
   employee_id: number;
 
@@ -32,6 +33,7 @@ export default class EmployeesInfo {
   })
   fatherName: string;
 
+  @Index()
   @Column({
     name: 'employee_username',
     nullable: true,
