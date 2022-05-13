@@ -8,6 +8,8 @@ import { VisitMarkService } from './shahi/visit-mark/visit-mark.service';
 import VisitsMark from 'src/entities/visitsMarked';
 import RetailersDetail from 'src/entities/retailersDetail';
 import { RetailerDetailService } from './shahi/retailer-detail/retailer-detail.service';
+import RouteAssignment from 'src/entities/routeAssignment';
+import { RouteAssignmentService } from './shahi/route-assignment/route-assignment.service';
 
 @Injectable()
 export class OrdersService {
@@ -17,10 +19,13 @@ export class OrdersService {
     private readonly shahiOrderService: OrderService,
     private readonly shahiVisitMarkService: VisitMarkService,
     private readonly shahiRetailerDetailService: RetailerDetailService,
+    private readonly shahiRouteAssignmentService: RouteAssignmentService,
     @InjectRepository(VisitsMark)
     private readonly repoVisitMark: Repository<VisitsMark>,
     @InjectRepository(RetailersDetail)
     private readonly retailersDetailRepo: Repository<RetailersDetail>,
+    @InjectRepository(RouteAssignment)
+    private readonly RouteAssignmentRepo: Repository<RouteAssignment>,
   ) {}
   async getOrders(): Promise<OrderContent[]> {
     // console.log('getOrders =>');
@@ -96,6 +101,21 @@ export class OrdersService {
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
       await this.retailersDetailRepo.save(chunks);
+    }
+    console.log('save ends ', new Date());
+    return null;
+  }
+
+  async migrateRouteAssignment(): Promise<RetailersDetail[]> {
+    const data = await this.shahiRouteAssignmentService.getAll();
+    console.log(data.length);
+    const length = data.length;
+    const chunkSize = 1000;
+    console.log('save starts ', new Date());
+
+    for (let i = 0; i < length; i += chunkSize) {
+      const chunks = data.slice(i, i + chunkSize);
+      await this.RouteAssignmentRepo.save(chunks);
     }
     console.log('save ends ', new Date());
     return null;

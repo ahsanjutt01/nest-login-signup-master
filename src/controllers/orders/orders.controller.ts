@@ -64,4 +64,9 @@ export class OrdersController {
   async migrateRetailerVisitMarked() {
     return await this.orderService.migrateRetailerDetail();
   }
+
+  @Get('routeAssingmentMigration')
+  async routeAssingmentMigration() {
+    return await this.orderService.migrateRouteAssignment();
+  }
 }
