@@ -13,7 +13,7 @@ import EmployeesInfo from './EmployeesInfo';
 import InventoryPreference from './inventoryPreference';
 import InventoryTypesUnits from './inventoryTypesUnit';
 import Neighbourhood from './neighbourhood';
-import { Order } from './Order';
+import Order from './Order';
 import OrderBookersTarget from './orderBookersTarget';
 import OrderContent from './orderContent';
 import PosMaterialItem from './posMaterialItem';
@@ -38,9 +38,9 @@ import TerritoryAssignmentNeighbourhood from './territoryAssignmentNeighbourhood
 import TerritoryManagement from './territoryManagement';
 
 const entities = [
+  Order,
   OrderContent,
   EmployeesInfo,
-  Order,
   bookedOrderContent,
   DistributorReturnedProduct,
   RetailersDetail,

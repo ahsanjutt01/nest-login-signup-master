@@ -1,5 +1,15 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  JoinTable,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ItemStatus } from './enums/itemStatus';
+import Order from './Order';
+
 // TODO: relationship
 @Entity({
   name: 'order_contents',
@@ -8,11 +18,11 @@ export default class OrderContent {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index()
   @Column({
     name: 'order_id',
     nullable: true,
   })
-  @Index()
   order_id: number;
 
   @Column({
@@ -336,16 +346,25 @@ export default class OrderContent {
   @Column({
     name: 'booking_date',
     nullable: true,
+    type: 'datetime',
+    default: () => 'NOW()',
   })
-  booking_date: number;
+  booking_date: Date;
   @Column({
     name: 'updated_at',
     nullable: true,
+    type: 'datetime',
+    default: () => 'NOW()',
   })
-  updated_at: number;
+  updated_at: Date;
   @Column({
     name: 'updated_by',
     nullable: true,
   })
   updated_by: number;
+
+  @ManyToOne(() => Order, (order) => order.orderContents)
+  @JoinColumn({ name: 'order_id', referencedColumnName: 'id' })
+  @JoinTable({ name: 'orders' })
+  order: Order;
 }

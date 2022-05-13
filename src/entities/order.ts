@@ -1,13 +1,34 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import BookedOrderContent from './bookedOrderContent';
 import { OrderType } from './enums/orderType';
+
+import OrderContent from './orderContent';
 
 // TODO: relationship
 @Entity({
   name: 'orders',
 })
-export class Order {
+export default class Order {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @OneToMany(() => OrderContent, (orderContent) => orderContent.order, {
+    cascade: true,
+  })
+  @JoinTable({ name: 'order_contents' })
+  orderContents: OrderContent[];
+
+  @OneToMany(() => BookedOrderContent, (orderContent) => orderContent.order, {
+    cascade: true,
+  })
+  @JoinTable({ name: 'booked_order_contents' })
+  bookedOrderContents: BookedOrderContent[];
 
   @Column({
     name: 'employee_id',
@@ -56,7 +77,7 @@ export class Order {
     name: 'status',
     nullable: true,
   })
-  status: number;
+  status: string;
 
   @Column({
     name: 'within_radius',

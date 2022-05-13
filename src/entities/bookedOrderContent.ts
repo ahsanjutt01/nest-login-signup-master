@@ -1,10 +1,19 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  JoinTable,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import Order from './Order';
 
 // TODO: relationship
 @Entity({
   name: 'booked_order_contents',
 })
-export default class bookedOrderContent {
+export default class BookedOrderContent {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -14,15 +23,19 @@ export default class bookedOrderContent {
   })
   employee_id: number;
 
+  @Index()
   @Column({
     name: 'pref_id',
     nullable: true,
   })
   pref_id: number;
+
+  @Index()
   @Column({
     name: 'item_quantity_booker',
     nullable: true,
   })
+  @Index()
   item_quantity_booker: number;
   @Column({
     name: 'item_quantity_updated',
@@ -179,11 +192,19 @@ export default class bookedOrderContent {
     nullable: true,
   })
   reasoning: string;
+
+  @Index()
   @Column({
     name: 'order_id',
     nullable: true,
   })
   order_id: number;
+
+  @ManyToOne(() => Order, (order) => order.bookedOrderContents)
+  @JoinColumn({ name: 'order_id', referencedColumnName: 'id' })
+  @JoinTable({ name: 'orders' })
+  order: Order;
+
   @Column({
     name: 'distributor_id',
     nullable: true,

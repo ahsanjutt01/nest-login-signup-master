@@ -9,16 +9,17 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 // import { OrdersService } from 'src/services/orders.service';
-// import ShahiOrderContentService from 'src/services/shahi/order-content/order-content.service';
+import ShahiOrderContentService from 'src/services/shahi/order-content/order-content.service';
+import { OrdersService } from 'src/services/orders.service';
 
 @Controller('orders')
 @ApiTags('Orders')
 export class OrdersController {
   constructor(
-    // private orderService: OrdersService,
+    private orderService: OrdersService,
+    private shahiOrderContentService: ShahiOrderContentService,
     private spacesService: SpacesService,
-  ) // private shahiOrderContentService: ShahiOrderContentService,
-  {}
+  ) {}
 
   @Get('listBuckets')
   async getBucketsList() {
@@ -40,8 +41,21 @@ export class OrdersController {
       'Body here',
     );
   }
-  //   @Get('orderContents')
-  //   async getOrdercontents() {
-  //     return this.shahiOrderContentService.findAll();
-  //   }
+  @Get('orderContents')
+  async getOrdercontents() {
+    // const data = await this.shahiOrderContentService.findAll();
+    // console.log('controller ');
+    // console.log('length =>', data);
+    // return data;
+
+    return await this.orderService.getOrders();
+  }
+  @Get('orders')
+  async getOrders() {
+    // const data = await this.shahiOrderContentService.findAll();
+    console.log('controller getAllOrders');
+    // console.log('length =>', data);
+    // return data;
+    return await this.orderService.getAllOrders();
+  }
 }
