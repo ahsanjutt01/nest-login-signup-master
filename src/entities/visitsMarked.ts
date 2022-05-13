@@ -1,13 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 // TODO: relationship
 @Entity({
-  name: 'orders',
+  name: 'visits_marked',
 })
-export default class Order {
+export default class VisitsMark {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index()
   @Column({
     name: 'retailer_id',
     nullable: true,
@@ -27,6 +28,7 @@ export default class Order {
   })
   distributor_id: number;
 
+  @Index()
   @Column({
     name: 'employee_id',
     nullable: true,
@@ -128,12 +130,14 @@ export default class Order {
   })
   out_of_plan: boolean;
 
+  @Index()
   @Column({
     name: 'unique_key',
     nullable: true,
   })
   unique_key: string;
 
+  @Index()
   @Column({
     name: 'created_at',
     nullable: true,

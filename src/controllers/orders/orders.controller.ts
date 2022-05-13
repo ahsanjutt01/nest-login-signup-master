@@ -52,10 +52,11 @@ export class OrdersController {
   }
   @Get('orders')
   async getOrders() {
-    // const data = await this.shahiOrderContentService.findAll();
-    console.log('controller getAllOrders');
-    // console.log('length =>', data);
-    // return data;
     return await this.orderService.getAllOrders();
+  }
+
+  @Get('visitMark')
+  async getVisitMark() {
+    return await this.orderService.getVisitMarked();
   }
 }

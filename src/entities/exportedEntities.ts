@@ -36,6 +36,7 @@ import SubCategory from './subCategory';
 import SubInventoryManagement from './subInventoryManagement';
 import TerritoryAssignmentNeighbourhood from './territoryAssignmentNeighbourhood';
 import TerritoryManagement from './territoryManagement';
+import VisitsMark from './visitsMarked';
 
 const entities = [
   Order,
@@ -75,6 +76,7 @@ const entities = [
   Province,
   Scheme,
   Segment,
+  VisitsMark,
 ];
 
 export default entities;

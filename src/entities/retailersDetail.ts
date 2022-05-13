@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 // TODO: relationship
 @Entity({
   name: 'retailers_details',
 })
 export default class RetailersDetail {
+  @Index()
   @PrimaryGeneratedColumn()
   id: number;
 
