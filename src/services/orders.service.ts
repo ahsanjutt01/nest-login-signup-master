@@ -12,6 +12,8 @@ import RouteAssignment from 'src/entities/routeAssignment';
 import { RouteAssignmentService } from './shahi/route-assignment/route-assignment.service';
 import { EmployeeInfoService } from './shahi/employee-info/employee-info.service';
 import EmployeesInfo from 'src/entities/EmployeesInfo';
+import DistributorReturnedProduct from 'src/entities/distributorReturnedProduct';
+import { DistributorReturnedProductService } from './shahi/distributor-returned-product/distributor-returned-product.service';
 
 @Injectable()
 export class OrdersService {
@@ -23,6 +25,7 @@ export class OrdersService {
     private readonly shahiRetailerDetailService: RetailerDetailService,
     private readonly shahiRouteAssignmentService: RouteAssignmentService,
     private readonly shahiEmployeeInfoService: EmployeeInfoService,
+    private readonly shahiDistributorReturnedProductService: DistributorReturnedProductService,
     @InjectRepository(VisitsMark)
     private readonly repoVisitMark: Repository<VisitsMark>,
     @InjectRepository(RetailersDetail)
@@ -32,6 +35,8 @@ export class OrdersService {
 
     @InjectRepository(EmployeesInfo)
     private readonly EmployeesInfoRepo: Repository<EmployeesInfo>,
+    @InjectRepository(DistributorReturnedProduct)
+    private readonly DistributorReturnedProductRepo: Repository<DistributorReturnedProduct>,
   ) {}
   async getOrders(): Promise<OrderContent[]> {
     // console.log('getOrders =>');
@@ -137,6 +142,21 @@ export class OrdersService {
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
       await this.EmployeesInfoRepo.save(chunks);
+    }
+    console.log('save ends ', new Date());
+    return null;
+  }
+
+  async migrateDistributorReturnedProduct(): Promise<RetailersDetail[]> {
+    const data = await this.shahiDistributorReturnedProductService.getAll();
+    console.log(data.length);
+    const length = data.length;
+    const chunkSize = 1000;
+    console.log('save starts ', new Date());
+
+    for (let i = 0; i < length; i += chunkSize) {
+      const chunks = data.slice(i, i + chunkSize);
+      await this.DistributorReturnedProductRepo.save(chunks);
     }
     console.log('save ends ', new Date());
     return null;

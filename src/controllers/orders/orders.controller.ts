@@ -74,4 +74,9 @@ export class OrdersController {
   async migrateEmployeeInfo() {
     return await this.orderService.migrateEmployeeInfo();
   }
+
+  @Get('migrateDistributorReturnedProduct')
+  async migrateDistributorReturnedProduct() {
+    return await this.orderService.migrateDistributorReturnedProduct();
+  }
 }
