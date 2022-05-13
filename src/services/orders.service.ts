@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import OrderContent from 'src/entities/orderContent';
 import { Repository } from 'typeorm/repository/Repository';
-import OrderContentService from './shahi/order-content/order-content.service';
-import { getConnection } from 'typeorm';
 import { OrderService } from './shahi/order/order.service';
 import Order from 'src/entities/Order';
 import { VisitMarkService } from './shahi/visit-mark/visit-mark.service';
 import VisitsMark from 'src/entities/visitsMarked';
+import RetailersDetail from 'src/entities/retailersDetail';
+import { RetailerDetailService } from './shahi/retailer-detail/retailer-detail.service';
 
 @Injectable()
 export class OrdersService {
@@ -16,8 +16,11 @@ export class OrdersService {
     private readonly repo: Repository<Order>,
     private readonly shahiOrderService: OrderService,
     private readonly shahiVisitMarkService: VisitMarkService,
+    private readonly shahiRetailerDetailService: RetailerDetailService,
     @InjectRepository(VisitsMark)
     private readonly repoVisitMark: Repository<VisitsMark>,
+    @InjectRepository(RetailersDetail)
+    private readonly retailersDetailRepo: Repository<RetailersDetail>,
   ) {}
   async getOrders(): Promise<OrderContent[]> {
     // console.log('getOrders =>');
@@ -78,6 +81,21 @@ export class OrdersService {
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
       await this.repoVisitMark.save(chunks);
+    }
+    console.log('save ends ', new Date());
+    return null;
+  }
+
+  async migrateRetailerDetail(): Promise<RetailersDetail[]> {
+    const data = await this.shahiRetailerDetailService.getAll();
+    console.log(data.length);
+    const length = data.length;
+    const chunkSize = 1000;
+    console.log('save starts ', new Date());
+
+    for (let i = 0; i < length; i += chunkSize) {
+      const chunks = data.slice(i, i + chunkSize);
+      await this.retailersDetailRepo.save(chunks);
     }
     console.log('save ends ', new Date());
     return null;

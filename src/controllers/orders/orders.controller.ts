@@ -59,4 +59,9 @@ export class OrdersController {
   async getVisitMark() {
     return await this.orderService.getVisitMarked();
   }
+
+  @Get('retaillerVisitMark')
+  async migrateRetailerVisitMarked() {
+    return await this.orderService.migrateRetailerDetail();
+  }
 }
