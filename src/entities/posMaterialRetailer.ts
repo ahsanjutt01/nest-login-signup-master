@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 // TODO: relationship
 @Entity({
   name: 'pos_material_retailers',
@@ -46,6 +46,8 @@ export default class PosMaterialRetailer {
     nullable: true,
   })
   asset_id: string;
+
+  @Index()
   @Column({
     name: 'unique_key',
     nullable: true,

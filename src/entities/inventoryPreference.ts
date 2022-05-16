@@ -1,12 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 // TODO: relationship
 @Entity({
   name: 'inventory_preferences',
 })
 export default class InventoryPreference {
+  @Index()
   @PrimaryGeneratedColumn()
   pref_id: number;
 
+  @Index()
   @Column({
     name: 'item_id',
     nullable: true,

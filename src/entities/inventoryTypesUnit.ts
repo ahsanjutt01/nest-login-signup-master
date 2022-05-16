@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 // TODO: relationship
 @Entity({
   name: 'inventory_types_units',
 })
 export default class InventoryTypesUnits {
+  @Index()
   @PrimaryGeneratedColumn()
   unit_id: number;
 
@@ -25,6 +26,7 @@ export default class InventoryTypesUnits {
   })
   unit_plural_name: string;
 
+  @Index()
   @Column({
     name: 'packaging_type',
     nullable: true,

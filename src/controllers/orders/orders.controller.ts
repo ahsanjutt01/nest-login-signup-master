@@ -79,4 +79,36 @@ export class OrdersController {
   async migrateDistributorReturnedProduct() {
     return await this.orderService.migrateDistributorReturnedProduct();
   }
+
+  @Get('migrateInventoryPreference')
+  async migrateInventoryPreference() {
+    return await this.orderService.migrateInventoryPreference();
+  }
+  @Get('migrateSpecialDiscount')
+  async migrateSpecialDiscount() {
+    return await this.orderService.migrateSpecialDiscount();
+  }
+  @Get('migrateNeighbourhood')
+  async migrateNeighbourhood() {
+    return await this.orderService.migrateNeighbourhood();
+  }
+
+  @Get('migrateInventoryTypesUnits')
+  async migrateInventoryTypesUnits() {
+    return await this.orderService.migrateInventoryTypesUnits();
+  }
+
+  @Get('migrateBrands')
+  async migrateBrands() {
+    return await this.orderService.migrateBrands();
+  }
+
+  @Get('migrateRetailerType')
+  async migrateRetailerType() {
+    return await this.orderService.migrateRetailerType();
+  }
+  @Get('migrateStockMangement')
+  async migrateStockMangement() {
+    return await this.orderService.migrateStockMangement();
+  }
 }

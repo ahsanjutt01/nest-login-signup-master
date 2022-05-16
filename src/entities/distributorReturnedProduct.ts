@@ -1,12 +1,14 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 // TODO: relationship
 @Entity({
   name: 'distributor_returned_products',
 })
 export default class DistributorReturnedProduct {
+  @Index()
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index()
   @Column({
     name: 'pref_id',
     nullable: true,

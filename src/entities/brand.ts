@@ -10,6 +10,8 @@ export default class Brand {
   @Column({
     name: 'name',
     nullable: true,
+    type: 'varchar',
+    length: 100,
   })
   name: string;
 }
