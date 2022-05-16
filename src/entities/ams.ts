@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 // TODO: relationship
 @Entity({
   name: 'ams',
@@ -33,6 +33,7 @@ export default class Ams {
     type: 'time',
   })
   shift_time: Date;
+  @Index()
   @Column({
     name: 'employee_id',
     nullable: true,
@@ -50,6 +51,7 @@ export default class Ams {
     type: 'tinyint',
   })
   co_within_radius: number;
+  @Index()
   @Column({
     name: 'created_at',
     nullable: true,

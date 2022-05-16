@@ -30,6 +30,10 @@ import { StockMangementService } from './shahi/stock-mangement/stock-mangement.s
 import StockMangement from 'src/entities/stockManagement';
 import { PosMaterialRetailersService } from './shahi/pos-material-retailers/pos-material-retailers.service';
 import PosMaterialRetailer from 'src/entities/posMaterialRetailer';
+import { SimilarityIndexResultService } from './shahi/similarity-index-result/similarity-index-result.service';
+import SimilarityIndexResult from 'src/entities/similarityIndexResult';
+import { AmsService } from './shahi/ams/ams.service';
+import Ams from 'src/entities/ams';
 
 @Injectable()
 export class OrdersService {
@@ -50,6 +54,8 @@ export class OrdersService {
     private readonly shahiStockMangementService: StockMangementService,
     private readonly shahiPosMaterialRetailersService: PosMaterialRetailersService,
     private readonly shahiSpecialDiscountService: SpecialDiscountService,
+    private readonly shahiSimilarityIndexResultService: SimilarityIndexResultService,
+    private readonly shahiAmsService: AmsService,
 
     @InjectRepository(VisitsMark)
     private readonly repoVisitMark: Repository<VisitsMark>,
@@ -79,6 +85,11 @@ export class OrdersService {
 
     @InjectRepository(PosMaterialRetailer)
     private readonly PosMaterialRetailerRepo: Repository<PosMaterialRetailer>,
+
+    @InjectRepository(SimilarityIndexResult)
+    private readonly SimilarityIndexResultRepo: Repository<SimilarityIndexResult>,
+    @InjectRepository(Ams)
+    private readonly AmsRepo: Repository<Ams>,
   ) {}
   async getOrders(): Promise<OrderContent[]> {
     // console.log('getOrders =>');
@@ -317,6 +328,36 @@ export class OrdersService {
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
       await this.PosMaterialRetailerRepo.save(chunks);
+    }
+    console.log('save ends ', new Date());
+    return null;
+  }
+
+  async migrateSimilarityIndexResult(): Promise<SimilarityIndexResult[]> {
+    const data = await this.shahiSimilarityIndexResultService.getAll();
+    console.log(data.length);
+    const length = data.length;
+    const chunkSize = 1000;
+    console.log('save starts ', new Date());
+
+    for (let i = 0; i < length; i += chunkSize) {
+      const chunks = data.slice(i, i + chunkSize);
+      await this.SimilarityIndexResultRepo.save(chunks);
+    }
+    console.log('save ends ', new Date());
+    return null;
+  }
+
+  async migrateAms(): Promise<Ams[]> {
+    const data = await this.shahiAmsService.getAll();
+    console.log(data.length);
+    const length = data.length;
+    const chunkSize = 1000;
+    console.log('save starts ', new Date());
+
+    for (let i = 0; i < length; i += chunkSize) {
+      const chunks = data.slice(i, i + chunkSize);
+      await this.AmsRepo.save(chunks);
     }
     console.log('save ends ', new Date());
     return null;

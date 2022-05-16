@@ -116,4 +116,14 @@ export class OrdersController {
   async migratePosMaterialRetailer() {
     return await this.orderService.migratePosMaterialRetailer();
   }
+
+  @Get('migrateSimilarityIndexResult')
+  async migrateSimilarityIndexResult() {
+    return await this.orderService.migrateSimilarityIndexResult();
+  }
+
+  @Get('migrateAms')
+  async migrateAms() {
+    return await this.orderService.migrateAms();
+  }
 }

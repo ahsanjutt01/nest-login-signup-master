@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from 'src/entities/exportedEntities';
+import { AmsService } from 'src/services/shahi/ams/ams.service';
 import { BrandsService } from 'src/services/shahi/brands/brands.service';
 import { DistributorReturnedProductService } from 'src/services/shahi/distributor-returned-product/distributor-returned-product.service';
 import { EmployeeInfoService } from 'src/services/shahi/employee-info/employee-info.service';
@@ -13,6 +14,7 @@ import { PosMaterialRetailersService } from 'src/services/shahi/pos-material-ret
 import { RetailerDetailService } from 'src/services/shahi/retailer-detail/retailer-detail.service';
 import { RetailerTypeService } from 'src/services/shahi/retailer-type/retailer-type.service';
 import { RouteAssignmentService } from 'src/services/shahi/route-assignment/route-assignment.service';
+import { SimilarityIndexResultService } from 'src/services/shahi/similarity-index-result/similarity-index-result.service';
 import { SpecialDiscountService } from 'src/services/shahi/special-discount/special-discount.service';
 import { StockMangementService } from 'src/services/shahi/stock-mangement/stock-mangement.service';
 import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.service';
@@ -35,6 +37,8 @@ import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.servi
     RetailerTypeService,
     StockMangementService,
     PosMaterialRetailersService,
+    SimilarityIndexResultService,
+    AmsService,
   ],
   exports: [
     OrderContentService,
@@ -52,6 +56,8 @@ import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.servi
     RetailerTypeService,
     StockMangementService,
     PosMaterialRetailersService,
+    SimilarityIndexResultService,
+    AmsService,
   ],
 })
 export default class OrderModule {}
