@@ -28,6 +28,8 @@ import { RetailerTypeService } from './shahi/retailer-type/retailer-type.service
 import RetailerType from 'src/entities/retailerType';
 import { StockMangementService } from './shahi/stock-mangement/stock-mangement.service';
 import StockMangement from 'src/entities/stockManagement';
+import { PosMaterialRetailersService } from './shahi/pos-material-retailers/pos-material-retailers.service';
+import PosMaterialRetailer from 'src/entities/posMaterialRetailer';
 
 @Injectable()
 export class OrdersService {
@@ -46,8 +48,9 @@ export class OrdersService {
     private readonly shahiBrandService: BrandsService,
     private readonly shahiRetailerTypeService: RetailerTypeService,
     private readonly shahiStockMangementService: StockMangementService,
-
+    private readonly shahiPosMaterialRetailersService: PosMaterialRetailersService,
     private readonly shahiSpecialDiscountService: SpecialDiscountService,
+
     @InjectRepository(VisitsMark)
     private readonly repoVisitMark: Repository<VisitsMark>,
     @InjectRepository(RetailersDetail)
@@ -71,9 +74,11 @@ export class OrdersService {
     private readonly BrandRepo: Repository<Brand>,
     @InjectRepository(RetailerType)
     private readonly RetailerTypeRepo: Repository<RetailerType>,
-
     @InjectRepository(StockMangement)
     private readonly StockMangementRepo: Repository<StockMangement>,
+
+    @InjectRepository(PosMaterialRetailer)
+    private readonly PosMaterialRetailerRepo: Repository<PosMaterialRetailer>,
   ) {}
   async getOrders(): Promise<OrderContent[]> {
     // console.log('getOrders =>');
@@ -297,6 +302,21 @@ export class OrdersService {
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
       await this.StockMangementRepo.save(chunks);
+    }
+    console.log('save ends ', new Date());
+    return null;
+  }
+
+  async migratePosMaterialRetailer(): Promise<PosMaterialRetailer[]> {
+    const data = await this.shahiPosMaterialRetailersService.getAll();
+    console.log(data.length);
+    const length = data.length;
+    const chunkSize = 1000;
+    console.log('save starts ', new Date());
+
+    for (let i = 0; i < length; i += chunkSize) {
+      const chunks = data.slice(i, i + chunkSize);
+      await this.PosMaterialRetailerRepo.save(chunks);
     }
     console.log('save ends ', new Date());
     return null;

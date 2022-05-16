@@ -9,6 +9,7 @@ import { InventoryTypesUnitsService } from 'src/services/shahi/inventory-types-u
 import { NeighbourhoodService } from 'src/services/shahi/neighbourhood/neighbourhood.service';
 import OrderContentService from 'src/services/shahi/order-content/order-content.service';
 import { OrderService } from 'src/services/shahi/order/order.service';
+import { PosMaterialRetailersService } from 'src/services/shahi/pos-material-retailers/pos-material-retailers.service';
 import { RetailerDetailService } from 'src/services/shahi/retailer-detail/retailer-detail.service';
 import { RetailerTypeService } from 'src/services/shahi/retailer-type/retailer-type.service';
 import { RouteAssignmentService } from 'src/services/shahi/route-assignment/route-assignment.service';
@@ -33,6 +34,7 @@ import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.servi
     BrandsService,
     RetailerTypeService,
     StockMangementService,
+    PosMaterialRetailersService,
   ],
   exports: [
     OrderContentService,
@@ -49,6 +51,7 @@ import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.servi
     BrandsService,
     RetailerTypeService,
     StockMangementService,
+    PosMaterialRetailersService,
   ],
 })
 export default class OrderModule {}

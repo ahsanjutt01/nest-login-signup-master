@@ -111,4 +111,9 @@ export class OrdersController {
   async migrateStockMangement() {
     return await this.orderService.migrateStockMangement();
   }
+
+  @Get('migratePosMaterialRetailer')
+  async migratePosMaterialRetailer() {
+    return await this.orderService.migratePosMaterialRetailer();
+  }
 }
