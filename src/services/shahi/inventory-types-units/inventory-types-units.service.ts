@@ -6,7 +6,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class InventoryTypesUnitsService {
   constructor(
-    @InjectRepository(InventoryTypesUnits, 'shahi')
+    @InjectRepository(
+      InventoryTypesUnits,
+      process.env.DATABASE_LIVE_CONNECTION_NAME,
+    )
     private readonly repo: Repository<InventoryTypesUnits>,
   ) {}
 

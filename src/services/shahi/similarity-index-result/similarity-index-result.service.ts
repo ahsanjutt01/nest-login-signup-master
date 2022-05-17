@@ -6,7 +6,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class SimilarityIndexResultService {
   constructor(
-    @InjectRepository(SimilarityIndexResult, 'shahi')
+    @InjectRepository(
+      SimilarityIndexResult,
+      process.env.DATABASE_LIVE_CONNECTION_NAME,
+    )
     private readonly repo: Repository<SimilarityIndexResult>,
   ) {}
 

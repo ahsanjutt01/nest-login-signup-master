@@ -349,7 +349,7 @@ export class OrdersService {
   }
 
   async migrateAms(): Promise<Ams[]> {
-    const data = await this.shahiAmsService.getAll();
+    const data = await this.shahiAmsService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;

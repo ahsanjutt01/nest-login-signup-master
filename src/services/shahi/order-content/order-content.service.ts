@@ -7,7 +7,7 @@ import OrderContent from 'src/entities/orderContent';
 @Injectable()
 export default class OrderContentService {
   constructor(
-    @InjectRepository(OrderContent, 'shahi')
+    @InjectRepository(OrderContent, process.env.DATABASE_LIVE_CONNECTION_NAME)
     private readonly repo: Repository<OrderContent>,
   ) {}
 

@@ -25,7 +25,7 @@ import { ConfigModule } from '@nestjs/config';
       }),
     }),
     TypeOrmModule.forRootAsync({
-      name: 'shahi',
+      name: process.env.DATABASE_LIVE_CONNECTION_NAME,
       useFactory: () => ({
         type: 'mysql',
         host: process.env.DB_HOST_2,

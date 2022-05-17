@@ -1,17 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Ams from 'src/entities/ams';
+import { AmsLiveRepository } from 'src/repositories/ams/ams.live.repository';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class AmsService {
   constructor(
-    @InjectRepository(Ams, 'shahi')
-    private readonly repo: Repository<Ams>,
+    @Inject('AmsRepositoryInterface')
+    private readonly repo: AmsLiveRepository,
   ) {}
 
-  async getAll(): Promise<Ams[]> {
-    const data = await this.repo.find();
+  public async findAll(): Promise<Ams[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

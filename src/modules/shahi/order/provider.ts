@@ -1,8 +1,4 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import entities from 'src/entities/exportedEntities';
 import { AmsLiveRepository } from 'src/repositories/ams/ams.live.repository';
-import { AmsRepositoryInterface } from 'src/repositories/ams/ams.reposiory.interface';
 import { AmsService } from 'src/services/shahi/ams/ams.service';
 import { BrandsService } from 'src/services/shahi/brands/brands.service';
 import { DistributorReturnedProductService } from 'src/services/shahi/distributor-returned-product/distributor-returned-product.service';
@@ -20,34 +16,27 @@ import { SimilarityIndexResultService } from 'src/services/shahi/similarity-inde
 import { SpecialDiscountService } from 'src/services/shahi/special-discount/special-discount.service';
 import { StockMangementService } from 'src/services/shahi/stock-mangement/stock-mangement.service';
 import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.service';
-import { Provider } from './provider';
 
-@Module({
-  imports: [
-    TypeOrmModule.forFeature(
-      entities,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    ),
-  ],
-  providers: Provider,
-  exports: [
-    OrderContentService,
-    OrderService,
-    VisitMarkService,
-    RetailerDetailService,
-    RouteAssignmentService,
-    EmployeeInfoService,
-    DistributorReturnedProductService,
-    InventoryPreferenceService,
-    SpecialDiscountService,
-    NeighbourhoodService,
-    InventoryTypesUnitsService,
-    BrandsService,
-    RetailerTypeService,
-    StockMangementService,
-    PosMaterialRetailersService,
-    SimilarityIndexResultService,
-    AmsService,
-  ],
-})
-export default class OrderModule {}
+export const Provider = [
+  OrderContentService,
+  OrderService,
+  VisitMarkService,
+  RetailerDetailService,
+  RouteAssignmentService,
+  EmployeeInfoService,
+  DistributorReturnedProductService,
+  InventoryPreferenceService,
+  SpecialDiscountService,
+  NeighbourhoodService,
+  InventoryTypesUnitsService,
+  BrandsService,
+  RetailerTypeService,
+  StockMangementService,
+  PosMaterialRetailersService,
+  SimilarityIndexResultService,
+  AmsService,
+  {
+    provide: 'AmsRepositoryInterface',
+    useClass: AmsLiveRepository,
+  },
+];

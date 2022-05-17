@@ -6,7 +6,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class RouteAssignmentService {
   constructor(
-    @InjectRepository(RouteAssignment, 'shahi')
+    @InjectRepository(
+      RouteAssignment,
+      process.env.DATABASE_LIVE_CONNECTION_NAME,
+    )
     private readonly repo: Repository<RouteAssignment>,
   ) {}
 

@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 // TODO: relationship
 @Entity({
   name: 'route_retailers',
@@ -7,11 +7,14 @@ export default class RouteRetailer {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index()
   @Column({
     name: 'route_id',
     nullable: true,
   })
   route_id: number;
+
+  @Index()
   @Column({
     name: 'retailer_id',
     nullable: true,
