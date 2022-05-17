@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import Ams from 'src/entities/ams';
 import { Repository } from 'typeorm';
-import { BaseAbstractRepository } from '../base/base.abstract.repository';
+import { BaseAbstractRepository } from '../_base/base.abstract.repository';
 import { AmsRepositoryInterface } from './ams.reposiory.interface';
+import Ams from 'src/entities/ams';
 
 @Injectable()
 export class AmsLiveRepository
