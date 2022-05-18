@@ -46,7 +46,6 @@ import { ConfigModule } from '@nestjs/config';
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
     },
-    AppService,
   ],
   controllers: [],
 })

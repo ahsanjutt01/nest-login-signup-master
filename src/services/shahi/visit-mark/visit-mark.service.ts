@@ -1,17 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import VisitsMark from 'src/entities/visitsMarked';
+import { VisitsMarkRepositoryInterface } from 'src/repositories/visit-mark/visitMark.reposiory.interface';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class VisitMarkService {
   constructor(
-    @InjectRepository(VisitsMark, 'shahi')
-    private readonly repo: Repository<VisitsMark>,
+    @Inject('VisitsMarkRepositoryInterface')
+    private readonly repo: VisitsMarkRepositoryInterface,
   ) {}
 
-  async getAll(): Promise<VisitsMark[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<VisitsMark[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

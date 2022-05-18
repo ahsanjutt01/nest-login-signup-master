@@ -1,17 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 import StockMangement from 'src/entities/stockManagement';
-import { Repository } from 'typeorm';
+import { StockMangementRepositoryInterface } from 'src/repositories/stock-mangement/stockMangement.reposiory.interface';
 
 @Injectable()
 export class StockMangementService {
   constructor(
-    @InjectRepository(StockMangement, 'shahi')
-    private readonly repo: Repository<StockMangement>,
+    @Inject('StockMangementRepositoryInterface')
+    private readonly repo: StockMangementRepositoryInterface,
   ) {}
 
-  async getAll(): Promise<StockMangement[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<StockMangement[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

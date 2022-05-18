@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import Order from 'src/entities/Order';
-import { OrderLiveRepository } from 'src/repositories/order/order.live.repository';
+import { OrderRepositoryInterface } from 'src/repositories/order/order.reposiory.interface';
 
 @Injectable()
 export class OrderService {
   constructor(
     @Inject('OrderRepositoryInterface')
-    private readonly repo: OrderLiveRepository,
+    private readonly repo: OrderRepositoryInterface,
   ) {}
 
   async findByConditionWithRelations(): Promise<Order[]> {

@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import OrderContent from 'src/entities/orderContent';
-import { OrderContentLiveRepository } from 'src/repositories/order-content/orderContent.live.repository';
+import { OrderContentRepositoryInterface } from 'src/repositories/order-content/orderContent.reposiory.interface';
 
 @Injectable()
 export default class OrderContentService {
   constructor(
     @Inject('OrderContentRepositoryInterface')
-    private readonly repo: OrderContentLiveRepository,
+    private readonly repo: OrderContentRepositoryInterface,
   ) {}
 
   async findAll(): Promise<OrderContent[]> {

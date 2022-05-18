@@ -1,17 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import RouteAssignment from 'src/entities/routeAssignment';
+import { RouteAssignmentRepositoryInterface } from 'src/repositories/route-assignment/routeAssignment.reposiory.interface';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class RouteAssignmentService {
   constructor(
-    @InjectRepository(RouteAssignment, 'shahi')
-    private readonly repo: Repository<RouteAssignment>,
+    @Inject('RouteAssignmentRepositoryInterface')
+    private readonly repo: RouteAssignmentRepositoryInterface,
   ) {}
 
-  async getAll(): Promise<RouteAssignment[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<RouteAssignment[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

@@ -1,7 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import OrderContent from 'src/entities/orderContent';
-import { Repository } from 'typeorm/repository/Repository';
 import { OrderService } from './shahi/order/order.service';
 import Order from 'src/entities/Order';
 import { VisitMarkService } from './shahi/visit-mark/visit-mark.service';
@@ -47,6 +45,22 @@ import { RouteAssignmentRepository } from 'src/repositories/route-assignment/rou
 import { RetailersDetailRepository } from 'src/repositories/retailer-detail/retaillerDetail.repository';
 import { VisitsMarkRepository } from 'src/repositories/visit-mark/visitMark.repository';
 import { OrderRepository } from 'src/repositories/order/order.repository';
+import { Helper } from 'src/util/helper';
+import RouteRetailer from 'src/entities/routeRetailer';
+import { RouteRetailerRepositoryInterface } from 'src/repositories/route-retailer/routeRetailer.reposiory.interface';
+import { RouteRetailerService } from './shahi/route-retailer/route-retailer.service';
+import { OrderBookerTargetService } from './shahi/order-booker-target/order-booker-target.service';
+import { OrderBookersTargetRepositoryInterface } from 'src/repositories/order-booker-target/oderBookerTarget.reposiory.interface';
+import OrderBookersTarget from 'src/entities/orderBookersTarget';
+import { TerritoryAssignmentNeighbourhoodService } from './shahi/territory-assignment-neighbourhood/territory-assignment-neighbourhood.service';
+import TerritoryAssignmentNeighbourhood from 'src/entities/territoryAssignmentNeighbourhood';
+import { TerritoryAssignmentNeighbourhoodRepositoryInterface } from 'src/repositories/territory-assignment-neighbourhood/territory-assignment-neighbourhood.reposiory.interface';
+import { AreaAssignmentLocalityService } from './shahi/area-assignment-locality/area-assignment-locality.service';
+import { AreaAssignmentLocalitieRepositoryInterface } from 'src/repositories/area-assignment-locality/areaAssignmentLocality.reposiory.interface';
+import AreaAssignmentLocalitie from 'src/entities/areaAssignmentLocalitie';
+import { DistributorProductsMarginService } from './shahi/distributor-products-margin/distributor-products-margin.service';
+import { DistributorProductsMarginRepositoryInterface } from 'src/repositories/distributor-product-margin/distributorProductMargin.reposiory.interface';
+import DistributorProductsMargin from 'src/entities/distributorProductsMargin';
 
 @Injectable()
 export class OrdersService {
@@ -67,6 +81,11 @@ export class OrdersService {
     private readonly shahiSpecialDiscountService: SpecialDiscountService,
     private readonly shahiSimilarityIndexResultService: SimilarityIndexResultService,
     private readonly shahiAmsService: AmsService,
+    private readonly shahiRouteRetailerService: RouteRetailerService,
+    private readonly shahiOrderBookerTargetService: OrderBookerTargetService,
+    private readonly shahiTerritoryAssignmentNeighbourhoodService: TerritoryAssignmentNeighbourhoodService,
+    private readonly shahiAreaAssignmentLocalityService: AreaAssignmentLocalityService,
+    private readonly shahiDistributorProductsMarginService: DistributorProductsMarginService,
 
     @Inject('OrderRepositoryInterface')
     private readonly orderRepo: OrderRepository,
@@ -115,6 +134,18 @@ export class OrdersService {
 
     @Inject('AmsRepositoryInterface')
     private readonly amsRepo: AmsRepositoryInterface,
+
+    @Inject('RouteRetailerRepositoryInterface')
+    private readonly routeRetailersRepo: RouteRetailerRepositoryInterface,
+    @Inject('OrderBookersTargetRepositoryInterface')
+    private readonly orderBookersTargetRepo: OrderBookersTargetRepositoryInterface,
+    @Inject('TerritoryAssignmentNeighbourhoodRepositoryInterface')
+    private readonly territoryAssignmentNeighbourhoodRepo: TerritoryAssignmentNeighbourhoodRepositoryInterface,
+    @Inject('AreaAssignmentLocalitieRepositoryInterface')
+    private readonly areaAssignmentLocalitieRepo: AreaAssignmentLocalitieRepositoryInterface,
+
+    @Inject('DistributorProductsMarginRepositoryInterface')
+    private readonly distributorProductsMarginRepo: DistributorProductsMarginRepositoryInterface,
   ) {}
 
   async getOrders(): Promise<OrderContent[]> {
@@ -165,7 +196,7 @@ export class OrdersService {
   }
 
   async getVisitMarked(): Promise<VisitsMark[]> {
-    const data = await this.shahiVisitMarkService.getAll();
+    const data = await this.shahiVisitMarkService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -197,7 +228,7 @@ export class OrdersService {
   }
 
   async migrateRouteAssignment(): Promise<RetailersDetail[]> {
-    const data = await this.shahiRouteAssignmentService.getAll();
+    const data = await this.shahiRouteAssignmentService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -257,7 +288,7 @@ export class OrdersService {
   }
 
   async migrateSpecialDiscount(): Promise<SpecialDiscount[]> {
-    const data = await this.shahiSpecialDiscountService.getAll();
+    const data = await this.shahiSpecialDiscountService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -330,7 +361,7 @@ export class OrdersService {
   }
 
   async migrateStockMangement(): Promise<StockMangement[]> {
-    const data = await this.shahiStockMangementService.getAll();
+    const data = await this.shahiStockMangementService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -360,7 +391,7 @@ export class OrdersService {
   }
 
   async migrateSimilarityIndexResult(): Promise<SimilarityIndexResult[]> {
-    const data = await this.shahiSimilarityIndexResultService.getAll();
+    const data = await this.shahiSimilarityIndexResultService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -376,16 +407,69 @@ export class OrdersService {
 
   async migrateAms(): Promise<Ams[]> {
     const data = await this.shahiAmsService.findAll();
-    console.log(data.length);
-    const length = data.length;
-    const chunkSize = 1000;
-    console.log('save starts ', new Date());
-
-    for (let i = 0; i < length; i += chunkSize) {
-      const chunks = data.slice(i, i + chunkSize);
-      await this.amsRepo.create(chunks);
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<Ams>(data, this.amsRepo);
     }
-    console.log('save ends ', new Date());
+    return null;
+  }
+
+  async migraterouteRetailler(): Promise<RouteRetailer[]> {
+    const data = await this.shahiRouteRetailerService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<RouteRetailer>(
+        data,
+        this.routeRetailersRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateOrderBookersTarget(): Promise<OrderBookersTarget[]> {
+    const data = await this.shahiOrderBookerTargetService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<OrderBookersTarget>(
+        data,
+        this.orderBookersTargetRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateTerritoryAssignmentNeighbourhood(): Promise<
+    TerritoryAssignmentNeighbourhood[]
+  > {
+    const data =
+      await this.shahiTerritoryAssignmentNeighbourhoodService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<TerritoryAssignmentNeighbourhood>(
+        data,
+        this.territoryAssignmentNeighbourhoodRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateAreaAssignmentLocalitie(): Promise<AreaAssignmentLocalitie[]> {
+    const data = await this.shahiAreaAssignmentLocalityService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<AreaAssignmentLocalitie>(
+        data,
+        this.areaAssignmentLocalitieRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateDistributorProductsMargin(): Promise<
+    DistributorProductsMargin[]
+  > {
+    const data = await this.shahiDistributorProductsMarginService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<DistributorProductsMargin>(
+        data,
+        this.distributorProductsMarginRepo,
+      );
+    }
     return null;
   }
 }

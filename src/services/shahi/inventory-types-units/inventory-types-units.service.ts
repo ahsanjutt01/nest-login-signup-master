@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import InventoryTypesUnits from 'src/entities/inventoryTypesUnit';
-import { InventoryTypesUnitLiveRepository } from 'src/repositories/inventory-types-units/inventoryTypeUnit.live.repository';
+import { InventoryTypesUnitRepositoryInterface } from 'src/repositories/inventory-types-units/inventoryTypeUnit.reposiory.interface';
 
 @Injectable()
 export class InventoryTypesUnitsService {
   constructor(
     @Inject('InventoryTypesUnitRepositoryInterface')
-    private readonly repo: InventoryTypesUnitLiveRepository,
+    private readonly repo: InventoryTypesUnitRepositoryInterface,
   ) {}
 
   async findAll(): Promise<InventoryTypesUnits[]> {

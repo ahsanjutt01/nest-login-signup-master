@@ -1,17 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 import SimilarityIndexResult from 'src/entities/similarityIndexResult';
-import { Repository } from 'typeorm';
+import { SimilarityIndexResultRepositoryInterface } from 'src/repositories/similarity-index-result/similiarityIndexResult.reposiory.interface';
 
 @Injectable()
 export class SimilarityIndexResultService {
   constructor(
-    @InjectRepository(SimilarityIndexResult, 'shahi')
-    private readonly repo: Repository<SimilarityIndexResult>,
+    @Inject('SimilarityIndexResultRepositoryInterface')
+    private readonly repo: SimilarityIndexResultRepositoryInterface,
   ) {}
 
-  async getAll(): Promise<SimilarityIndexResult[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<SimilarityIndexResult[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import EmployeesInfo from 'src/entities/EmployeesInfo';
-import { EmployeeInfoLiveRepository } from 'src/repositories/employee-info/employeeInfo.live.repository';
+import { EmployeeInfoRepositoryInterface } from 'src/repositories/employee-info/employeeInfo.reposiory.interface';
 
 @Injectable()
 export class EmployeeInfoService {
   constructor(
     @Inject('EmployeeInfoRepositoryInterface')
-    private readonly repo: EmployeeInfoLiveRepository,
+    private readonly repo: EmployeeInfoRepositoryInterface,
   ) {}
 
   async findAll(): Promise<EmployeesInfo[]> {

@@ -126,4 +126,27 @@ export class OrdersController {
   async migrateAms() {
     return await this.orderService.migrateAms();
   }
+
+  @Get('migraterouteRetailler')
+  async migraterouteRetailler() {
+    return await this.orderService.migraterouteRetailler();
+  }
+
+  @Get('migrateOrderBookersTarget')
+  async migrateOrderBookersTarget() {
+    return await this.orderService.migrateOrderBookersTarget();
+  }
+  @Get('migrateTerritoryAssignmentNeighbourhood')
+  async migrateTerritoryAssignmentNeighbourhood() {
+    return await this.orderService.migrateTerritoryAssignmentNeighbourhood();
+  }
+  @Get('migrateAreaAssignmentLocalitie')
+  async migrateAreaAssignmentLocalitie() {
+    return await this.orderService.migrateAreaAssignmentLocalitie();
+  }
+
+  @Get('migrateDistributorProductsMargin')
+  async migrateDistributorProductsMargin() {
+    return await this.orderService.migrateDistributorProductsMargin();
+  }
 }

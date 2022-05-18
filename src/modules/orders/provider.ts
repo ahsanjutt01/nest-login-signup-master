@@ -1,19 +1,24 @@
 import { AmsRepository } from 'src/repositories/ams/ams.repository';
+import { AreaAssignmentLocalitieRepository } from 'src/repositories/area-assignment-locality/areaAssignmentLocality.repository';
 import { BrandRepository } from 'src/repositories/brand/brand.repository';
+import { DistributorProductsMarginRepository } from 'src/repositories/distributor-product-margin/distributorProductMargin.repository';
 import { DistributorReturnedProductRepository } from 'src/repositories/distributor-returned-product/distributorReturnedProduct.repository';
 import { EmployeeInfoRepository } from 'src/repositories/employee-info/employeeInfo.repository';
 import { InventoryPrefernceRepository } from 'src/repositories/inventory-preference/inventoryPreference.repository';
 import { InventoryTypesUnitsRepository } from 'src/repositories/inventory-types-units/inventoryTypeUnit.repository';
 import { NeighbourhoodRepository } from 'src/repositories/neighbourhood/neighbourhood.repository';
+import { OrderBookersTargetRepository } from 'src/repositories/order-booker-target/oderBookerTarget.repository';
 import { OrderContentRepository } from 'src/repositories/order-content/orderContent.repository';
 import { OrderRepository } from 'src/repositories/order/order.repository';
 import { PosMaterialRetailerRepository } from 'src/repositories/pos-material-retailers/posMaterialRetailer.repository';
 import { RetailersDetailRepository } from 'src/repositories/retailer-detail/retaillerDetail.repository';
 import { RetailerTypeRepository } from 'src/repositories/retailer-type/retailerType.repository';
 import { RouteAssignmentRepository } from 'src/repositories/route-assignment/routeAssignment.repository';
+import { RouteRetailerRepository } from 'src/repositories/route-retailer/routeRetailer.repository';
 import { SimilarityIndexResultRepository } from 'src/repositories/similarity-index-result/similiarityIndexResult.repository';
 import { SpecialDiscountRepository } from 'src/repositories/special-discount/specialDiscount.repository';
 import { StockMangementRepository } from 'src/repositories/stock-mangement/stockMangement.repository';
+import { TerritoryAssignmentNeighbourhoodRepository } from 'src/repositories/territory-assignment-neighbourhood/territory-assignment-neighbourhood.repository';
 import { VisitsMarkRepository } from 'src/repositories/visit-mark/visitMark.repository';
 import { OrdersService } from 'src/services/orders.service';
 import { SpacesService } from 'src/services/spaces.service';
@@ -91,5 +96,25 @@ export const Provider = [
   {
     provide: 'VisitsMarkRepositoryInterface',
     useClass: VisitsMarkRepository,
+  },
+  {
+    provide: 'RouteRetailerRepositoryInterface',
+    useClass: RouteRetailerRepository,
+  },
+  {
+    provide: 'OrderBookersTargetRepositoryInterface',
+    useClass: OrderBookersTargetRepository,
+  },
+  {
+    provide: 'TerritoryAssignmentNeighbourhoodRepositoryInterface',
+    useClass: TerritoryAssignmentNeighbourhoodRepository,
+  },
+  {
+    provide: 'AreaAssignmentLocalitieRepositoryInterface',
+    useClass: AreaAssignmentLocalitieRepository,
+  },
+  {
+    provide: 'DistributorProductsMarginRepositoryInterface',
+    useClass: DistributorProductsMarginRepository,
   },
 ];

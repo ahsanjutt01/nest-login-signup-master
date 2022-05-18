@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import Brand from 'src/entities/brand';
-import { BrandRepository } from 'src/repositories/brand/brand.repository';
+import { BrandRepositoryInterface } from 'src/repositories/brand/brand.reposiory.interface';
 
 @Injectable()
 export class BrandsService {
   constructor(
     @Inject('BrandRepositoryInterface')
-    private readonly repo: BrandRepository,
+    private readonly repo: BrandRepositoryInterface,
   ) {}
 
   async findAll(): Promise<Brand[]> {

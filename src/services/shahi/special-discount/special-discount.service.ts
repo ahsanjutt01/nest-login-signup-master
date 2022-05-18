@@ -1,17 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 import SpecialDiscount from 'src/entities/specialDiscount';
-import { Repository } from 'typeorm';
+import { SpecialDiscountRepositoryInterface } from 'src/repositories/special-discount/specialDiscount.reposiory.interface';
 
 @Injectable()
 export class SpecialDiscountService {
   constructor(
-    @InjectRepository(SpecialDiscount, 'shahi')
-    private readonly repo: Repository<SpecialDiscount>,
+    @Inject('SpecialDiscountRepositoryInterface')
+    private readonly repo: SpecialDiscountRepositoryInterface,
   ) {}
 
-  async getAll(): Promise<SpecialDiscount[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<SpecialDiscount[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

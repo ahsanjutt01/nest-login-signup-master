@@ -9,21 +9,25 @@ export default class Ams {
 
   @Column({
     name: 'ci_lat',
+    type: 'double',
     nullable: true,
   })
   ci_lat: number;
   @Column({
     name: 'ci_lng',
+    type: 'double',
     nullable: true,
   })
   ci_lng: number;
   @Column({
     name: 'co_lat',
+    type: 'double',
     nullable: true,
   })
   co_lat: number;
   @Column({
     name: 'co_lng',
+    type: 'double',
     nullable: true,
   })
   co_lng: number;
@@ -42,15 +46,17 @@ export default class Ams {
   @Column({
     name: 'ci_within_radius',
     nullable: true,
-    type: 'tinyint',
+    type: 'bool',
+    width: 1,
   })
-  ci_within_radius: number;
+  ci_within_radius: boolean;
   @Column({
     name: 'co_within_radius',
     nullable: true,
-    type: 'tinyint',
+    type: 'bool',
+    width: 1,
   })
-  co_within_radius: number;
+  co_within_radius: boolean;
   @Index()
   @Column({
     name: 'created_at',

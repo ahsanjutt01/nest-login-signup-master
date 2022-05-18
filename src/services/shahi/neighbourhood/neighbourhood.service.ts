@@ -1,14 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import Neighbourhood from 'src/entities/neighbourhood';
-import { NeighbourhoodLiveRepository } from 'src/repositories/neighbourhood/neighbourhood.live.repository';
-import { Repository } from 'typeorm';
+import { NeighbourhoodRepositoryInterface } from 'src/repositories/neighbourhood/neighbourhood.reposiory.interface';
 
 @Injectable()
 export class NeighbourhoodService {
   constructor(
     @Inject('NeighbourhoodRepositoryInterface')
-    private readonly repo: NeighbourhoodLiveRepository,
+    private readonly repo: NeighbourhoodRepositoryInterface,
   ) {}
 
   async findAll(): Promise<Neighbourhood[]> {
