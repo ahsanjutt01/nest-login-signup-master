@@ -61,6 +61,21 @@ import AreaAssignmentLocalitie from 'src/entities/areaAssignmentLocalitie';
 import { DistributorProductsMarginService } from './shahi/distributor-products-margin/distributor-products-margin.service';
 import { DistributorProductsMarginRepositoryInterface } from 'src/repositories/distributor-product-margin/distributorProductMargin.reposiory.interface';
 import DistributorProductsMargin from 'src/entities/distributorProductsMargin';
+import { AreaAssignmentRepositoryInterface } from 'src/repositories/area-assignment/areaAssignment.reposiory.interface';
+import { AreaAssignmentService } from './shahi/area-assignment/area-assignment.service';
+import AreaAssignment from 'src/entities/areaAssignment';
+import { PosMaterialItemService } from './shahi/pos-material-item/pos-material-item.service';
+import { PosMaterialItemRepositoryInterface } from 'src/repositories/pos-material-item/posMaterialItem.reposiory.interface';
+import PosMaterialItem from 'src/entities/posMaterialItem';
+import { RegionAssignmentService } from './shahi/region-assignment/region-assignment.service';
+import { RegionAssignmentRepositoryInterface } from 'src/repositories/region-assignment/regionAssignment.reposiory.interface';
+import RegionAssignment from 'src/entities/regionAssignment';
+import { SubInventorymanagementService } from './shahi/sub-inventorymanagement/sub-inventorymanagement.service';
+import { SubInventoryManagementRepositoryInterface } from 'src/repositories/sub-inventory-management/subInventoryManagement.reposiory.interface';
+import SubInventoryManagement from 'src/entities/subInventoryManagement';
+import { SubCategoryService } from './shahi/sub-category/sub-category.service';
+import { SubCategoryRepositoryInterface } from 'src/repositories/sub-category/subCategory.reposiory.interface';
+import SubCategory from 'src/entities/subCategory';
 
 @Injectable()
 export class OrdersService {
@@ -86,6 +101,11 @@ export class OrdersService {
     private readonly shahiTerritoryAssignmentNeighbourhoodService: TerritoryAssignmentNeighbourhoodService,
     private readonly shahiAreaAssignmentLocalityService: AreaAssignmentLocalityService,
     private readonly shahiDistributorProductsMarginService: DistributorProductsMarginService,
+    private readonly shahiAreaAssignmentService: AreaAssignmentService,
+    private readonly shahiPosMaterialItemService: PosMaterialItemService,
+    private readonly shahiRegionAssignmentService: RegionAssignmentService,
+    private readonly shahiSubInventorymanagementService: SubInventorymanagementService,
+    private readonly shahiSubCategoryService: SubCategoryService,
 
     @Inject('OrderRepositoryInterface')
     private readonly orderRepo: OrderRepository,
@@ -146,6 +166,18 @@ export class OrdersService {
 
     @Inject('DistributorProductsMarginRepositoryInterface')
     private readonly distributorProductsMarginRepo: DistributorProductsMarginRepositoryInterface,
+
+    @Inject('AreaAssignmentRepositoryInterface')
+    private readonly areaAssignmentRepo: AreaAssignmentRepositoryInterface,
+
+    @Inject('PosMaterialItemRepositoryInterface')
+    private readonly posMaterialItemRepo: PosMaterialItemRepositoryInterface,
+    @Inject('RegionAssignmentRepositoryInterface')
+    private readonly regionAssignmentRepo: RegionAssignmentRepositoryInterface,
+    @Inject('RegionAssignmentRepositoryInterface')
+    private readonly subInventoryManagementRepo: SubInventoryManagementRepositoryInterface,
+    @Inject('RegionAssignmentRepositoryInterface')
+    private readonly subCategoryRepo: SubCategoryRepositoryInterface,
   ) {}
 
   async getOrders(): Promise<OrderContent[]> {
@@ -468,6 +500,61 @@ export class OrdersService {
       await Helper.saveDataInchunksIntoWherehouseDb<DistributorProductsMargin>(
         data,
         this.distributorProductsMarginRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateAreaAssignment(): Promise<AreaAssignment[]> {
+    const data = await this.shahiAreaAssignmentService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<AreaAssignment>(
+        data,
+        this.areaAssignmentRepo,
+      );
+    }
+    return null;
+  }
+
+  async migratePosMaterialItem(): Promise<PosMaterialItem[]> {
+    const data = await this.shahiPosMaterialItemService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<PosMaterialItem>(
+        data,
+        this.posMaterialItemRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateRegionAssignment(): Promise<RegionAssignment[]> {
+    const data = await this.shahiRegionAssignmentService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<RegionAssignment>(
+        data,
+        this.regionAssignmentRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateSubInventoryManagement(): Promise<SubInventoryManagement[]> {
+    const data = await this.shahiSubInventorymanagementService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<SubInventoryManagement>(
+        data,
+        this.subInventoryManagementRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateSubCategory(): Promise<SubCategory[]> {
+    const data = await this.shahiSubCategoryService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<SubCategory>(
+        data,
+        this.subCategoryRepo,
       );
     }
     return null;

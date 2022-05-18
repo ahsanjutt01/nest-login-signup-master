@@ -1,7 +1,6 @@
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/exception.filter';
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersModule } from './modules/orders/orders.module';
 import entities from './entities/exportedEntities';

@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import entities from 'src/entities/exportedEntities';
 import { AmsService } from 'src/services/shahi/ams/ams.service';
 import { AreaAssignmentLocalityService } from 'src/services/shahi/area-assignment-locality/area-assignment-locality.service';
+import { AreaAssignmentService } from 'src/services/shahi/area-assignment/area-assignment.service';
 import { BrandsService } from 'src/services/shahi/brands/brands.service';
 import { DistributorProductsMarginService } from 'src/services/shahi/distributor-products-margin/distributor-products-margin.service';
 import { DistributorReturnedProductService } from 'src/services/shahi/distributor-returned-product/distributor-returned-product.service';
@@ -13,7 +14,10 @@ import { NeighbourhoodService } from 'src/services/shahi/neighbourhood/neighbour
 import { OrderBookerTargetService } from 'src/services/shahi/order-booker-target/order-booker-target.service';
 import OrderContentService from 'src/services/shahi/order-content/order-content.service';
 import { OrderService } from 'src/services/shahi/order/order.service';
+import { PosMaterialItemService } from 'src/services/shahi/pos-material-item/pos-material-item.service';
 import { PosMaterialRetailersService } from 'src/services/shahi/pos-material-retailers/pos-material-retailers.service';
+import { RegionAssignmentService } from 'src/services/shahi/region-assignment/region-assignment.service';
+import { RegionInfoService } from 'src/services/shahi/region-info/region-info.service';
 import { RetailerDetailService } from 'src/services/shahi/retailer-detail/retailer-detail.service';
 import { RetailerTypeService } from 'src/services/shahi/retailer-type/retailer-type.service';
 import { RouteAssignmentService } from 'src/services/shahi/route-assignment/route-assignment.service';
@@ -21,6 +25,8 @@ import { RouteRetailerService } from 'src/services/shahi/route-retailer/route-re
 import { SimilarityIndexResultService } from 'src/services/shahi/similarity-index-result/similarity-index-result.service';
 import { SpecialDiscountService } from 'src/services/shahi/special-discount/special-discount.service';
 import { StockMangementService } from 'src/services/shahi/stock-mangement/stock-mangement.service';
+import { SubCategoryService } from 'src/services/shahi/sub-category/sub-category.service';
+import { SubInventorymanagementService } from 'src/services/shahi/sub-inventorymanagement/sub-inventorymanagement.service';
 import { TerritoryAssignmentNeighbourhoodService } from 'src/services/shahi/territory-assignment-neighbourhood/territory-assignment-neighbourhood.service';
 import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.service';
 import { Provider } from './provider';
@@ -51,6 +57,12 @@ import { Provider } from './provider';
     TerritoryAssignmentNeighbourhoodService,
     AreaAssignmentLocalityService,
     DistributorProductsMarginService,
+    AreaAssignmentService,
+    PosMaterialItemService,
+    RegionAssignmentService,
+    SubInventorymanagementService,
+    SubCategoryService,
+    RegionInfoService,
   ],
 })
 export default class OrderModule {}

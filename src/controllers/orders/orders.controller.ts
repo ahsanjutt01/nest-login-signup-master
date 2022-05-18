@@ -149,4 +149,29 @@ export class OrdersController {
   async migrateDistributorProductsMargin() {
     return await this.orderService.migrateDistributorProductsMargin();
   }
+
+  @Get('migrateAreaAssignment')
+  async migrateAreaAssignment() {
+    return await this.orderService.migrateAreaAssignment();
+  }
+
+  @Get('migratePosMaterialItem')
+  async migratePosMaterialItem() {
+    return await this.orderService.migratePosMaterialItem();
+  }
+
+  @Get('migrateRegionAssignment')
+  async migrateRegionAssignment() {
+    return await this.orderService.migrateRegionAssignment();
+  }
+
+  @Get('migrateSubInventoryManagement')
+  async migrateSubInventoryManagement() {
+    return await this.orderService.migrateSubInventoryManagement();
+  }
+
+  @Get('migrateSubCategory')
+  async migrateSubCategory() {
+    return await this.orderService.migrateSubCategory();
+  }
 }
