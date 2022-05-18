@@ -1,20 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 import InventoryPreference from 'src/entities/inventoryPreference';
-import { Repository } from 'typeorm';
+import { InventoryPreferenceLiveRepository } from 'src/repositories/inventory-preference/inventoryPreference.live.repository';
 
 @Injectable()
 export class InventoryPreferenceService {
   constructor(
-    @InjectRepository(
-      InventoryPreference,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
-    private readonly repo: Repository<InventoryPreference>,
+    @Inject('InventoryPreferenceRepositoryInterface')
+    private readonly repo: InventoryPreferenceLiveRepository,
   ) {}
 
-  async getAll(): Promise<InventoryPreference[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<InventoryPreference[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

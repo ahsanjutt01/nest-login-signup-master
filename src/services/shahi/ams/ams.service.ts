@@ -1,14 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import Ams from 'src/entities/ams';
-import { AmsLiveRepository } from 'src/repositories/ams/ams.live.repository';
-import { Repository } from 'typeorm';
+import { AmsRepositoryInterface } from 'src/repositories/ams/ams.reposiory.interface';
 
 @Injectable()
 export class AmsService {
   constructor(
     @Inject('AmsRepositoryInterface')
-    private readonly repo: AmsLiveRepository,
+    private readonly repo: AmsRepositoryInterface,
   ) {}
 
   public async findAll(): Promise<Ams[]> {

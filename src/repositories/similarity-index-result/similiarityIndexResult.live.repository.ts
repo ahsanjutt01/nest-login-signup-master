@@ -11,10 +11,7 @@ export class SimilarityIndexResultLiveRepository
   implements SimilarityIndexResultRepositoryInterface
 {
   constructor(
-    @InjectRepository(
-      SimilarityIndexResult,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(SimilarityIndexResult, 'shahi')
     private readonly similarityIndexResultLiveRepository: Repository<SimilarityIndexResult>,
   ) {
     super(similarityIndexResultLiveRepository);

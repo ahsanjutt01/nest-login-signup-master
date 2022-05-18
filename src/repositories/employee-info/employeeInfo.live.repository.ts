@@ -12,7 +12,7 @@ export class EmployeeInfoLiveRepository
   implements EmployeeInfoRepositoryInterface
 {
   constructor(
-    @InjectRepository(EmployeesInfo, process.env.DATABASE_LIVE_CONNECTION_NAME)
+    @InjectRepository(EmployeesInfo, 'shahi')
     private readonly employeesInfoLiveRepository: Repository<EmployeesInfo>,
   ) {
     super(employeesInfoLiveRepository);

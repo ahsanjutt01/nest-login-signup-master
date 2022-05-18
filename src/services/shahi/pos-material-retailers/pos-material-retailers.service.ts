@@ -1,20 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import PosMaterialRetailer from 'src/entities/posMaterialRetailer';
+import { PosMaterialRetailerLiveRepository } from 'src/repositories/pos-material-retailers/posMaterialRetailer.live.repository';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class PosMaterialRetailersService {
   constructor(
-    @InjectRepository(
-      PosMaterialRetailer,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
-    private readonly repo: Repository<PosMaterialRetailer>,
+    @Inject('PosMaterialRetailerRepositoryInterface')
+    private readonly repo: PosMaterialRetailerLiveRepository,
   ) {}
 
-  async getAll(): Promise<PosMaterialRetailer[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<PosMaterialRetailer[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

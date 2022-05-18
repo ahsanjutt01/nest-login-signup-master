@@ -11,7 +11,7 @@ export class VisitsMarkLiveRepository
   implements VisitsMarkRepositoryInterface
 {
   constructor(
-    @InjectRepository(VisitsMark, process.env.DATABASE_LIVE_CONNECTION_NAME)
+    @InjectRepository(VisitsMark, 'shahi')
     private readonly visitsMarkLiveRepository: Repository<VisitsMark>,
   ) {
     super(visitsMarkLiveRepository);

@@ -6,10 +6,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class SpecialDiscountService {
   constructor(
-    @InjectRepository(
-      SpecialDiscount,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(SpecialDiscount, 'shahi')
     private readonly repo: Repository<SpecialDiscount>,
   ) {}
 

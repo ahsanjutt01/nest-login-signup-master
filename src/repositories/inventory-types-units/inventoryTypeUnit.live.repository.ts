@@ -11,10 +11,7 @@ export class InventoryTypesUnitLiveRepository
   implements InventoryTypesUnitRepositoryInterface
 {
   constructor(
-    @InjectRepository(
-      InventoryTypesUnits,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(InventoryTypesUnits, 'shahi')
     private readonly inventoryTypesUnitLiveRepository: Repository<InventoryTypesUnits>,
   ) {
     super(inventoryTypesUnitLiveRepository);

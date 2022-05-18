@@ -13,6 +13,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
+      // name: process.env.DATABASE_WHEREHOUSE_CONNECTION_NAME,
       useFactory: () => ({
         type: 'mysql',
         host: process.env.DB_HOST,
@@ -25,7 +26,7 @@ import { ConfigModule } from '@nestjs/config';
       }),
     }),
     TypeOrmModule.forRootAsync({
-      name: process.env.DATABASE_LIVE_CONNECTION_NAME,
+      name: 'shahi',
       useFactory: () => ({
         type: 'mysql',
         host: process.env.DB_HOST_2,

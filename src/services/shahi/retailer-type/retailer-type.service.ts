@@ -1,17 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 import RetailerType from 'src/entities/retailerType';
-import { Repository } from 'typeorm';
+import { RetailerTypeLiveRepository } from 'src/repositories/retailer-type/retailerType.live.repository';
 
 @Injectable()
 export class RetailerTypeService {
   constructor(
-    @InjectRepository(RetailerType, process.env.DATABASE_LIVE_CONNECTION_NAME)
-    private readonly repo: Repository<RetailerType>,
+    @Inject('RetailerTypeRepositoryInterface')
+    private readonly repo: RetailerTypeLiveRepository,
   ) {}
 
-  async getAll(): Promise<RetailerType[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<RetailerType[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

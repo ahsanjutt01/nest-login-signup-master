@@ -11,7 +11,7 @@ export class BrandLiveRepository
   implements BrandRepositoryInterface
 {
   constructor(
-    @InjectRepository(Brand, process.env.DATABASE_LIVE_CONNECTION_NAME)
+    @InjectRepository(Brand, 'shahi')
     private readonly brandLiveRepository: Repository<Brand>,
   ) {
     super(brandLiveRepository);

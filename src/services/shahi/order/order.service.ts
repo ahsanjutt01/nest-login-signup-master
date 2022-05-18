@@ -1,24 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 import Order from 'src/entities/Order';
-import { Repository } from 'typeorm';
+import { OrderLiveRepository } from 'src/repositories/order/order.live.repository';
 
 @Injectable()
 export class OrderService {
   constructor(
-    @InjectRepository(Order, process.env.DATABASE_LIVE_CONNECTION_NAME)
-    private readonly repo: Repository<Order>,
+    @Inject('OrderRepositoryInterface')
+    private readonly repo: OrderLiveRepository,
   ) {}
 
-  async findAll(): Promise<Order[]> {
+  async findByConditionWithRelations(): Promise<Order[]> {
     console.log('start => ', new Date());
-    const data = await this.repo.find({
-      where: {
+    const data = await this.repo.findByConditionWithRelations(
+      {
         status: 'Completed',
       },
-      take: 2,
-      relations: ['orderContents', 'bookedOrderContents'],
-    });
+      ['orderContents', 'bookedOrderContents'],
+    );
     console.log('end ss=> ', new Date());
     return data;
   }

@@ -11,7 +11,7 @@ export class OrderContentLiveRepository
   implements OrderContentRepositoryInterface
 {
   constructor(
-    @InjectRepository(OrderContent, process.env.DATABASE_LIVE_CONNECTION_NAME)
+    @InjectRepository(OrderContent, 'shahi')
     private readonly orderContentLiveRepository: Repository<OrderContent>,
   ) {
     super(orderContentLiveRepository);

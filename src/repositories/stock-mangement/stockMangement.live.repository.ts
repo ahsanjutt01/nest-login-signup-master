@@ -11,7 +11,7 @@ export class StockMangementLiveRepository
   implements StockMangementRepositoryInterface
 {
   constructor(
-    @InjectRepository(StockMangement, process.env.DATABASE_LIVE_CONNECTION_NAME)
+    @InjectRepository(StockMangement, 'shahi')
     private readonly stockMangementLiveRepository: Repository<StockMangement>,
   ) {
     super(stockMangementLiveRepository);

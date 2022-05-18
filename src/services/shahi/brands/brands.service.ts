@@ -1,17 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 import Brand from 'src/entities/brand';
-import { Repository } from 'typeorm';
+import { BrandRepository } from 'src/repositories/brand/brand.repository';
 
 @Injectable()
 export class BrandsService {
   constructor(
-    @InjectRepository(Brand, process.env.DATABASE_LIVE_CONNECTION_NAME)
-    private readonly repo: Repository<Brand>,
+    @Inject('BrandRepositoryInterface')
+    private readonly repo: BrandRepository,
   ) {}
 
-  async getAll(): Promise<Brand[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<Brand[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

@@ -1,8 +1,9 @@
 import { AmsLiveRepository } from 'src/repositories/ams/ams.live.repository';
 import { BrandLiveRepository } from 'src/repositories/brand/brand.live.repository';
-import { EmployeeInfoRepository } from 'src/repositories/employee-info/employeeInfo.repository';
+import { DistributorReturnedProductLiveRepository } from 'src/repositories/distributor-returned-product/distributorReturnedProduct.live.repository';
+import { EmployeeInfoLiveRepository } from 'src/repositories/employee-info/employeeInfo.live.repository';
 import { InventoryPreferenceLiveRepository } from 'src/repositories/inventory-preference/inventoryPreference.live.repository';
-import { InventoryTypesUnitsRepository } from 'src/repositories/inventory-types-units/inventoryTypeUnit.repository';
+import { InventoryTypesUnitLiveRepository } from 'src/repositories/inventory-types-units/inventoryTypeUnit.live.repository';
 import { NeighbourhoodLiveRepository } from 'src/repositories/neighbourhood/neighbourhood.live.repository';
 import { OrderContentLiveRepository } from 'src/repositories/order-content/orderContent.live.repository';
 import { OrderLiveRepository } from 'src/repositories/order/order.live.repository';
@@ -48,8 +49,8 @@ export const Provider = [
   RetailerTypeService,
   StockMangementService,
   PosMaterialRetailersService,
-  SimilarityIndexResultService,
   AmsService,
+  SimilarityIndexResultService,
   {
     provide: 'AmsRepositoryInterface',
     useClass: AmsLiveRepository,
@@ -60,8 +61,12 @@ export const Provider = [
     useClass: BrandLiveRepository,
   },
   {
+    provide: 'DistributorReturnedProductRepositoryInterface',
+    useClass: DistributorReturnedProductLiveRepository,
+  },
+  {
     provide: 'EmployeeInfoRepositoryInterface',
-    useClass: EmployeeInfoRepository,
+    useClass: EmployeeInfoLiveRepository,
   },
   {
     provide: 'InventoryPreferenceRepositoryInterface',
@@ -69,7 +74,7 @@ export const Provider = [
   },
   {
     provide: 'InventoryTypesUnitRepositoryInterface',
-    useClass: InventoryTypesUnitsRepository,
+    useClass: InventoryTypesUnitLiveRepository,
   },
 
   {

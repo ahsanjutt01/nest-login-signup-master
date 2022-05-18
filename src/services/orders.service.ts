@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import OrderContent from 'src/entities/orderContent';
 import { Repository } from 'typeorm/repository/Repository';
@@ -8,11 +8,8 @@ import { VisitMarkService } from './shahi/visit-mark/visit-mark.service';
 import VisitsMark from 'src/entities/visitsMarked';
 import RetailersDetail from 'src/entities/retailersDetail';
 import { RetailerDetailService } from './shahi/retailer-detail/retailer-detail.service';
-import RouteAssignment from 'src/entities/routeAssignment';
 import { RouteAssignmentService } from './shahi/route-assignment/route-assignment.service';
 import { EmployeeInfoService } from './shahi/employee-info/employee-info.service';
-import EmployeesInfo from 'src/entities/EmployeesInfo';
-import DistributorReturnedProduct from 'src/entities/distributorReturnedProduct';
 import { DistributorReturnedProductService } from './shahi/distributor-returned-product/distributor-returned-product.service';
 import { InventoryPreferenceService } from './shahi/inventory-preference/inventory-preference.service';
 import InventoryPreference from 'src/entities/inventoryPreference';
@@ -34,12 +31,26 @@ import { SimilarityIndexResultService } from './shahi/similarity-index-result/si
 import SimilarityIndexResult from 'src/entities/similarityIndexResult';
 import { AmsService } from './shahi/ams/ams.service';
 import Ams from 'src/entities/ams';
+import { AmsRepositoryInterface } from 'src/repositories/ams/ams.reposiory.interface';
+import { PosMaterialRetailerRepositoryInterface } from 'src/repositories/pos-material-retailers/posMaterialRetailer.reposiory.interface';
+import { SimilarityIndexResultRepository } from 'src/repositories/similarity-index-result/similiarityIndexResult.repository';
+import { StockMangementRepository } from 'src/repositories/stock-mangement/stockMangement.repository';
+import { RetailerTypeRepository } from 'src/repositories/retailer-type/retailerType.repository';
+import { BrandRepository } from 'src/repositories/brand/brand.repository';
+import { NeighbourhoodRepository } from 'src/repositories/neighbourhood/neighbourhood.repository';
+import { SpecialDiscountRepository } from 'src/repositories/special-discount/specialDiscount.repository';
+import { InventoryPrefernceRepository } from 'src/repositories/inventory-preference/inventoryPreference.repository';
+import { DistributorReturnedProductRepository } from 'src/repositories/distributor-returned-product/distributorReturnedProduct.repository';
+import { EmployeeInfoRepository } from 'src/repositories/employee-info/employeeInfo.repository';
+import { InventoryTypesUnitsRepository } from 'src/repositories/inventory-types-units/inventoryTypeUnit.repository';
+import { RouteAssignmentRepository } from 'src/repositories/route-assignment/routeAssignment.repository';
+import { RetailersDetailRepository } from 'src/repositories/retailer-detail/retaillerDetail.repository';
+import { VisitsMarkRepository } from 'src/repositories/visit-mark/visitMark.repository';
+import { OrderRepository } from 'src/repositories/order/order.repository';
 
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectRepository(Order)
-    private readonly repo: Repository<Order>,
     private readonly shahiOrderService: OrderService,
     private readonly shahiVisitMarkService: VisitMarkService,
     private readonly shahiRetailerDetailService: RetailerDetailService,
@@ -57,40 +68,55 @@ export class OrdersService {
     private readonly shahiSimilarityIndexResultService: SimilarityIndexResultService,
     private readonly shahiAmsService: AmsService,
 
-    @InjectRepository(VisitsMark)
-    private readonly repoVisitMark: Repository<VisitsMark>,
-    @InjectRepository(RetailersDetail)
-    private readonly retailersDetailRepo: Repository<RetailersDetail>,
-    @InjectRepository(RouteAssignment)
-    private readonly RouteAssignmentRepo: Repository<RouteAssignment>,
-    @InjectRepository(InventoryTypesUnits)
-    private readonly InventoryTypesUnitsRepo: Repository<InventoryTypesUnits>,
+    @Inject('OrderRepositoryInterface')
+    private readonly orderRepo: OrderRepository,
 
-    @InjectRepository(EmployeesInfo)
-    private readonly EmployeesInfoRepo: Repository<EmployeesInfo>,
-    @InjectRepository(DistributorReturnedProduct)
-    private readonly DistributorReturnedProductRepo: Repository<DistributorReturnedProduct>,
-    @InjectRepository(InventoryPreference)
-    private readonly InventoryPreferenceRepo: Repository<InventoryPreference>,
-    @InjectRepository(SpecialDiscount)
-    private readonly SpecialDiscountRepo: Repository<SpecialDiscount>,
-    @InjectRepository(Neighbourhood)
-    private readonly NeighbourhoodRepo: Repository<Neighbourhood>,
-    @InjectRepository(Brand)
-    private readonly BrandRepo: Repository<Brand>,
-    @InjectRepository(RetailerType)
-    private readonly RetailerTypeRepo: Repository<RetailerType>,
-    @InjectRepository(StockMangement)
-    private readonly StockMangementRepo: Repository<StockMangement>,
+    @Inject('VisitsMarkRepositoryInterface')
+    private readonly visitMarkRepo: VisitsMarkRepository,
 
-    @InjectRepository(PosMaterialRetailer)
-    private readonly PosMaterialRetailerRepo: Repository<PosMaterialRetailer>,
+    @Inject('RetailersDetailRepositoryInterface')
+    private readonly retailersDetailRepo: RetailersDetailRepository,
 
-    @InjectRepository(SimilarityIndexResult)
-    private readonly SimilarityIndexResultRepo: Repository<SimilarityIndexResult>,
-    @InjectRepository(Ams)
-    private readonly AmsRepo: Repository<Ams>,
+    @Inject('RouteAssignmentRepositoryInterface')
+    private readonly routeAssignmentRepo: RouteAssignmentRepository,
+
+    @Inject('InventoryTypesUnitRepositoryInterface')
+    private readonly inventoryTypesUnitsRepo: InventoryTypesUnitsRepository,
+
+    @Inject('EmployeeInfoRepositoryInterface')
+    private readonly employeesInfoRepo: EmployeeInfoRepository,
+
+    @Inject('DistributorReturnedProductRepositoryInterface')
+    private readonly distributorReturnedProductRepo: DistributorReturnedProductRepository,
+
+    @Inject('InventoryPreferenceRepositoryInterface')
+    private readonly inventoryPreferenceRepo: InventoryPrefernceRepository,
+
+    @Inject('SpecialDiscountRepositoryInterface')
+    private readonly specialDiscountRepo: SpecialDiscountRepository,
+
+    @Inject('NeighbourhoodRepositoryInterface')
+    private readonly neighbourhoodRepo: NeighbourhoodRepository,
+
+    @Inject('BrandRepositoryInterface')
+    private readonly brandRepo: BrandRepository,
+
+    @Inject('RetailerTypeRepositoryInterface')
+    private readonly retailerTypeRepo: RetailerTypeRepository,
+
+    @Inject('StockMangementRepositoryInterface')
+    private readonly stockMangementRepository: StockMangementRepository,
+
+    @Inject('PosMaterialRetailerRepositoryInterface')
+    private readonly posMaterialRetailerRepo: PosMaterialRetailerRepositoryInterface,
+
+    @Inject('SimilarityIndexResultRepositoryInterface')
+    private readonly similarityIndexResultRepo: SimilarityIndexResultRepository,
+
+    @Inject('AmsRepositoryInterface')
+    private readonly amsRepo: AmsRepositoryInterface,
   ) {}
+
   async getOrders(): Promise<OrderContent[]> {
     // console.log('getOrders =>');
     // const data = await this.shahiOrderContentService.findAll();
@@ -118,7 +144,7 @@ export class OrdersService {
   }
 
   async getAllOrders(): Promise<Order[]> {
-    const data = await this.shahiOrderService.findAll();
+    const data = await this.shahiOrderService.findByConditionWithRelations();
     // console.log(data[0]);
     const length = data.length;
     const chunkSize = 500;
@@ -126,7 +152,7 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      const inserted = await this.repo.save(chunks);
+      const inserted = await this.orderRepo.create(chunks);
     }
     console.log('save ends ', new Date());
 
@@ -149,14 +175,14 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.repoVisitMark.save(chunks);
+      await this.visitMarkRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
 
   async migrateRetailerDetail(): Promise<RetailersDetail[]> {
-    const data = await this.shahiRetailerDetailService.getAll();
+    const data = await this.shahiRetailerDetailService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -164,7 +190,7 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.retailersDetailRepo.save(chunks);
+      await this.retailersDetailRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
@@ -179,14 +205,14 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.RouteAssignmentRepo.save(chunks);
+      await this.routeAssignmentRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
 
   async migrateEmployeeInfo(): Promise<RetailersDetail[]> {
-    const data = await this.shahiEmployeeInfoService.getAll();
+    const data = await this.shahiEmployeeInfoService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -194,14 +220,14 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.EmployeesInfoRepo.save(chunks);
+      await this.employeesInfoRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
 
   async migrateDistributorReturnedProduct(): Promise<RetailersDetail[]> {
-    const data = await this.shahiDistributorReturnedProductService.getAll();
+    const data = await this.shahiDistributorReturnedProductService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -209,14 +235,14 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.DistributorReturnedProductRepo.save(chunks);
+      await this.distributorReturnedProductRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
 
   async migrateInventoryPreference(): Promise<InventoryPreference[]> {
-    const data = await this.shahiInventoryPreferenceService.getAll();
+    const data = await this.shahiInventoryPreferenceService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -224,7 +250,7 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.InventoryPreferenceRepo.save(chunks);
+      await this.inventoryPreferenceRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
@@ -239,14 +265,14 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.SpecialDiscountRepo.save(chunks);
+      await this.specialDiscountRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
 
   async migrateNeighbourhood(): Promise<Neighbourhood[]> {
-    const data = await this.shahiNeighbourhoodService.getAll();
+    const data = await this.shahiNeighbourhoodService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -254,14 +280,14 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.NeighbourhoodRepo.save(chunks);
+      await this.neighbourhoodRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
 
   async migrateInventoryTypesUnits(): Promise<InventoryTypesUnits[]> {
-    const data = await this.shahiInventoryTypesUnitsService.getAll();
+    const data = await this.shahiInventoryTypesUnitsService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -269,13 +295,13 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.InventoryTypesUnitsRepo.save(chunks);
+      await this.inventoryTypesUnitsRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
   async migrateBrands(): Promise<Brand[]> {
-    const data = await this.shahiBrandService.getAll();
+    const data = await this.shahiBrandService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -283,13 +309,13 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.BrandRepo.save(chunks);
+      await this.brandRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
   async migrateRetailerType(): Promise<RetailerType[]> {
-    const data = await this.shahiRetailerTypeService.getAll();
+    const data = await this.shahiRetailerTypeService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -297,7 +323,7 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.RetailerTypeRepo.save(chunks);
+      await this.retailerTypeRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
@@ -312,14 +338,14 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.StockMangementRepo.save(chunks);
+      await this.stockMangementRepository.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
   }
 
   async migratePosMaterialRetailer(): Promise<PosMaterialRetailer[]> {
-    const data = await this.shahiPosMaterialRetailersService.getAll();
+    const data = await this.shahiPosMaterialRetailersService.findAll();
     console.log(data.length);
     const length = data.length;
     const chunkSize = 1000;
@@ -327,7 +353,7 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.PosMaterialRetailerRepo.save(chunks);
+      await this.posMaterialRetailerRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
@@ -342,7 +368,7 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.SimilarityIndexResultRepo.save(chunks);
+      await this.similarityIndexResultRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;
@@ -357,7 +383,7 @@ export class OrdersService {
 
     for (let i = 0; i < length; i += chunkSize) {
       const chunks = data.slice(i, i + chunkSize);
-      await this.AmsRepo.save(chunks);
+      await this.amsRepo.create(chunks);
     }
     console.log('save ends ', new Date());
     return null;

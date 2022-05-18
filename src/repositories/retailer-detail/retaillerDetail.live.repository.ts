@@ -11,10 +11,7 @@ export class RetailersDetailLiveRepository
   implements RetailersDetailRepositoryInterface
 {
   constructor(
-    @InjectRepository(
-      RetailersDetail,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(RetailersDetail, 'shahi')
     private readonly retailersDetailLiveRepository: Repository<RetailersDetail>,
   ) {
     super(retailersDetailLiveRepository);

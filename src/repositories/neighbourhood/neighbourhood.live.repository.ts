@@ -11,7 +11,7 @@ export class NeighbourhoodLiveRepository
   implements NeighbourhoodRepositoryInterface
 {
   constructor(
-    @InjectRepository(Neighbourhood, process.env.DATABASE_LIVE_CONNECTION_NAME)
+    @InjectRepository(Neighbourhood, 'shahi')
     private readonly neighbourhoodLiveRepository: Repository<Neighbourhood>,
   ) {
     super(neighbourhoodLiveRepository);

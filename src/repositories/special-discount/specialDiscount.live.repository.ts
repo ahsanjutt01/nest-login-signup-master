@@ -11,10 +11,7 @@ export class SpecialDiscountLiveRepository
   implements SpecialDiscountRepositoryInterface
 {
   constructor(
-    @InjectRepository(
-      SpecialDiscount,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(SpecialDiscount, 'shahi')
     private readonly specialDiscountLiveRepository: Repository<SpecialDiscount>,
   ) {
     super(specialDiscountLiveRepository);

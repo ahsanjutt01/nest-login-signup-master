@@ -5,10 +5,11 @@ import { OrdersController } from './../../controllers/orders/orders.controller';
 import { OrdersService } from 'src/services/orders.service';
 import { Module } from '@nestjs/common';
 import OrderModule from '../shahi/order/order.module';
+import { Provider } from './provider';
 
 @Module({
   imports: [TypeOrmModule.forFeature(entities), OrderModule],
-  providers: [OrdersService, SpacesService],
+  providers: Provider,
   controllers: [OrdersController],
 })
 export class OrdersModule {}

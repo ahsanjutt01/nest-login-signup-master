@@ -11,10 +11,7 @@ export class RouteAssignmentLiveRepository
   implements RouteAssignmentRepositoryInterface
 {
   constructor(
-    @InjectRepository(
-      RouteAssignment,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(RouteAssignment, 'shahi')
     private readonly routeAssignmentLiveRepository: Repository<RouteAssignment>,
   ) {
     super(routeAssignmentLiveRepository);

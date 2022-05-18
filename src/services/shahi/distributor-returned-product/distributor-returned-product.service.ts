@@ -1,20 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import DistributorReturnedProduct from 'src/entities/distributorReturnedProduct';
+import { DistributorReturnedProductLiveRepository } from 'src/repositories/distributor-returned-product/distributorReturnedProduct.live.repository';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class DistributorReturnedProductService {
   constructor(
-    @InjectRepository(
-      DistributorReturnedProduct,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
-    private readonly repo: Repository<DistributorReturnedProduct>,
+    @Inject('DistributorReturnedProductRepositoryInterface')
+    private readonly repo: DistributorReturnedProductLiveRepository,
   ) {}
 
-  async getAll(): Promise<DistributorReturnedProduct[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<DistributorReturnedProduct[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

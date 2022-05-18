@@ -11,10 +11,7 @@ export class DistributorReturnedProductLiveRepository
   implements DistributorReturnedProductRepositoryInterface
 {
   constructor(
-    @InjectRepository(
-      DistributorReturnedProduct,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(DistributorReturnedProduct, 'shahi')
     private readonly distributorReturnedProductLiveRepository: Repository<DistributorReturnedProduct>,
   ) {
     super(distributorReturnedProductLiveRepository);

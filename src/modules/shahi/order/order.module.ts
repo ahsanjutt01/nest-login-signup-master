@@ -23,12 +23,7 @@ import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.servi
 import { Provider } from './provider';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature(
-      entities,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    ),
-  ],
+  imports: [TypeOrmModule.forFeature(entities, 'shahi')],
   providers: Provider,
   exports: [
     OrderContentService,

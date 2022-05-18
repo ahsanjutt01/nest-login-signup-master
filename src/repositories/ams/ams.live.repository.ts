@@ -11,8 +11,8 @@ export class AmsLiveRepository
   implements AmsRepositoryInterface
 {
   constructor(
-    @InjectRepository(Ams, process.env.DATABASE_LIVE_CONNECTION_NAME)
-    private readonly amsLiveRepository: Repository<Ams>,
+    @InjectRepository(Ams, 'shahi')
+    public readonly amsLiveRepository: Repository<Ams>,
   ) {
     super(amsLiveRepository);
   }

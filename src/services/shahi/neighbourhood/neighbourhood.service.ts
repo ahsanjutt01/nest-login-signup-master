@@ -1,17 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import Neighbourhood from 'src/entities/neighbourhood';
+import { NeighbourhoodLiveRepository } from 'src/repositories/neighbourhood/neighbourhood.live.repository';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class NeighbourhoodService {
   constructor(
-    @InjectRepository(Neighbourhood, process.env.DATABASE_LIVE_CONNECTION_NAME)
-    private readonly repo: Repository<Neighbourhood>,
+    @Inject('NeighbourhoodRepositoryInterface')
+    private readonly repo: NeighbourhoodLiveRepository,
   ) {}
 
-  async getAll(): Promise<Neighbourhood[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<Neighbourhood[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

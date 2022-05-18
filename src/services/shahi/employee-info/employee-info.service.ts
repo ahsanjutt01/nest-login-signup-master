@@ -1,17 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 import EmployeesInfo from 'src/entities/EmployeesInfo';
-import { Repository } from 'typeorm';
+import { EmployeeInfoLiveRepository } from 'src/repositories/employee-info/employeeInfo.live.repository';
 
 @Injectable()
 export class EmployeeInfoService {
   constructor(
-    @InjectRepository(EmployeesInfo, process.env.DATABASE_LIVE_CONNECTION_NAME)
-    private readonly repo: Repository<EmployeesInfo>,
+    @Inject('EmployeeInfoRepositoryInterface')
+    private readonly repo: EmployeeInfoLiveRepository,
   ) {}
 
-  async getAll(): Promise<EmployeesInfo[]> {
-    const data = await this.repo.find();
+  async findAll(): Promise<EmployeesInfo[]> {
+    const data = await this.repo.findAll();
     return data;
   }
 }

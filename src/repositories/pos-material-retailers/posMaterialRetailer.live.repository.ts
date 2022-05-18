@@ -11,10 +11,7 @@ export class PosMaterialRetailerLiveRepository
   implements PosMaterialRetailerRepositoryInterface
 {
   constructor(
-    @InjectRepository(
-      PosMaterialRetailer,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(PosMaterialRetailer, 'shahi')
     private readonly posMaterialRetailerLiveRepository: Repository<PosMaterialRetailer>,
   ) {
     super(posMaterialRetailerLiveRepository);

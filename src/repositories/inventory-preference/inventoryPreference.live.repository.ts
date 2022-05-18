@@ -12,10 +12,7 @@ export class InventoryPreferenceLiveRepository
   implements InventoryPreferenceRepositoryInterface
 {
   constructor(
-    @InjectRepository(
-      InventoryPreference,
-      process.env.DATABASE_LIVE_CONNECTION_NAME,
-    )
+    @InjectRepository(InventoryPreference, 'shahi')
     private readonly inventoryPreferenceLiveRepository: Repository<InventoryPreference>,
   ) {
     super(inventoryPreferenceLiveRepository);
