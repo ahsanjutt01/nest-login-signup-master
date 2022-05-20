@@ -31,7 +31,7 @@ export default class AreaManagement {
     name: 'divisions',
     nullable: true,
     type: 'varchar',
-    length: 100,
+    length: 20,
   })
   divisions: string;
   @Column({

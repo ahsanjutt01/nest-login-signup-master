@@ -2,6 +2,8 @@ import { AmsLiveRepository } from 'src/repositories/ams/ams.live.repository';
 import { AreaAssignmentLocalitieLiveRepository } from 'src/repositories/area-assignment-locality/areaAssignmentLocality.live.repository';
 import { AreaAssignmentLiveRepository } from 'src/repositories/area-assignment/areaAssignment.live.repository';
 import { BrandLiveRepository } from 'src/repositories/brand/brand.live.repository';
+import { CityLiveRepository } from 'src/repositories/city/city.live.repository';
+import { DistributorsAssignmentLiveRepository } from 'src/repositories/distributor-assignment/distributorAssignment.live.repository';
 import { DistributorProductsMarginLiveRepository } from 'src/repositories/distributor-product-margin/distributorProductMargin.live.repository';
 import { DistributorReturnedProductLiveRepository } from 'src/repositories/distributor-returned-product/distributorReturnedProduct.live.repository';
 import { EmployeeInfoLiveRepository } from 'src/repositories/employee-info/employeeInfo.live.repository';
@@ -13,6 +15,7 @@ import { OrderContentLiveRepository } from 'src/repositories/order-content/order
 import { OrderLiveRepository } from 'src/repositories/order/order.live.repository';
 import { PosMaterialItemLiveRepository } from 'src/repositories/pos-material-item/posMaterialItem.live.repository';
 import { PosMaterialRetailerLiveRepository } from 'src/repositories/pos-material-retailers/posMaterialRetailer.live.repository';
+import { RegionAssignmentCityLiveRepository } from 'src/repositories/region-assignment-city/regionAssignmentCity.live.repository';
 import { RegionAssignmentLiveRepository } from 'src/repositories/region-assignment/regionAssignment.live.repository';
 import { RegionsInfoLiveRepository } from 'src/repositories/region-info/regionInfo.live.repository';
 import { RetailersDetailLiveRepository } from 'src/repositories/retailer-detail/retaillerDetail.live.repository';
@@ -25,11 +28,14 @@ import { StockMangementLiveRepository } from 'src/repositories/stock-mangement/s
 import { SubCategoryLiveRepository } from 'src/repositories/sub-category/subCategory.live.repository';
 import { SubInventoryManagementLiveRepository } from 'src/repositories/sub-inventory-management/subInventoryManagement.live.repository';
 import { TerritoryAssignmentNeighbourhoodLiveRepository } from 'src/repositories/territory-assignment-neighbourhood/territory-assignment-neighbourhood.live.repository';
+import { TerritoryManagementLiveRepository } from 'src/repositories/territory-management/territoryManagement.live.repository';
 import { VisitsMarkLiveRepository } from 'src/repositories/visit-mark/visitMark.live.repository';
 import { AmsService } from 'src/services/shahi/ams/ams.service';
 import { AreaAssignmentLocalityService } from 'src/services/shahi/area-assignment-locality/area-assignment-locality.service';
 import { AreaAssignmentService } from 'src/services/shahi/area-assignment/area-assignment.service';
 import { BrandsService } from 'src/services/shahi/brands/brands.service';
+import { CityService } from 'src/services/shahi/city/city.service';
+import { DistributorAssignmentService } from 'src/services/shahi/distributor-assignment/distributor-assignment.service';
 import { DistributorProductsMarginService } from 'src/services/shahi/distributor-products-margin/distributor-products-margin.service';
 import { DistributorReturnedProductService } from 'src/services/shahi/distributor-returned-product/distributor-returned-product.service';
 import { EmployeeInfoService } from 'src/services/shahi/employee-info/employee-info.service';
@@ -41,6 +47,7 @@ import OrderContentService from 'src/services/shahi/order-content/order-content.
 import { OrderService } from 'src/services/shahi/order/order.service';
 import { PosMaterialItemService } from 'src/services/shahi/pos-material-item/pos-material-item.service';
 import { PosMaterialRetailersService } from 'src/services/shahi/pos-material-retailers/pos-material-retailers.service';
+import { RegionAssignmentCityService } from 'src/services/shahi/region-assignment-city/region-assignment-city.service';
 import { RegionAssignmentService } from 'src/services/shahi/region-assignment/region-assignment.service';
 import { RegionInfoService } from 'src/services/shahi/region-info/region-info.service';
 import { RetailerDetailService } from 'src/services/shahi/retailer-detail/retailer-detail.service';
@@ -53,6 +60,7 @@ import { StockMangementService } from 'src/services/shahi/stock-mangement/stock-
 import { SubCategoryService } from 'src/services/shahi/sub-category/sub-category.service';
 import { SubInventorymanagementService } from 'src/services/shahi/sub-inventorymanagement/sub-inventorymanagement.service';
 import { TerritoryAssignmentNeighbourhoodService } from 'src/services/shahi/territory-assignment-neighbourhood/territory-assignment-neighbourhood.service';
+import { TerritoryMangmentService } from 'src/services/shahi/territory-mangment/territory-mangment.service';
 import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.service';
 
 export const Provider = [
@@ -84,6 +92,10 @@ export const Provider = [
   SubInventorymanagementService,
   SubCategoryService,
   RegionInfoService,
+  DistributorAssignmentService,
+  CityService,
+  TerritoryMangmentService,
+  RegionAssignmentCityService,
   {
     provide: 'AmsRepositoryInterface',
     useClass: AmsLiveRepository,
@@ -199,5 +211,22 @@ export const Provider = [
   {
     provide: 'RegionsInfoRepositoryInterface',
     useClass: RegionsInfoLiveRepository,
+  },
+  {
+    provide: 'DistributorsAssignmentRepositoryInterface',
+    useClass: DistributorsAssignmentLiveRepository,
+  },
+  {
+    provide: 'CityRepositoryInterface',
+    useClass: CityLiveRepository,
+  },
+  {
+    provide: 'TerritoryManagementRepositoryInterface',
+    useClass: TerritoryManagementLiveRepository,
+  },
+
+  {
+    provide: 'RegionAssignmentCityRepositoryInterface',
+    useClass: RegionAssignmentCityLiveRepository,
   },
 ];

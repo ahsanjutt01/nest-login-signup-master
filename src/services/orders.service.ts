@@ -76,6 +76,21 @@ import SubInventoryManagement from 'src/entities/subInventoryManagement';
 import { SubCategoryService } from './shahi/sub-category/sub-category.service';
 import { SubCategoryRepositoryInterface } from 'src/repositories/sub-category/subCategory.reposiory.interface';
 import SubCategory from 'src/entities/subCategory';
+import { RegionInfoService } from './shahi/region-info/region-info.service';
+import { RegionsInfoRepositoryInterface } from 'src/repositories/region-info/regionInfo.reposiory.interface';
+import RegionsInfo from 'src/entities/regionsInfo';
+import { DistributorAssignmentService } from './shahi/distributor-assignment/distributor-assignment.service';
+import { DistributorsAssignmentRepositoryInterface } from 'src/repositories/distributor-assignment/distributorAssignment.reposiory.interface';
+import DistributorsAssignment from 'src/entities/distributorsAssignment';
+import { CityService } from './shahi/city/city.service';
+import { CityRepositoryInterface } from 'src/repositories/city/city.reposiory.interface';
+import City from 'src/entities/city';
+import { TerritoryMangmentService } from './shahi/territory-mangment/territory-mangment.service';
+import { TerritoryManagementRepositoryInterface } from 'src/repositories/territory-management/territoryManagement.reposiory.interface';
+import TerritoryManagement from 'src/entities/territoryManagement';
+import RegionAssignmentCity from 'src/entities/regionAssignmentCity';
+import { RegionAssignmentCityRepositoryInterface } from 'src/repositories/region-assignment-city/regionAssignmentCity.reposiory.interface';
+import { RegionAssignmentCityService } from './shahi/region-assignment-city/region-assignment-city.service';
 
 @Injectable()
 export class OrdersService {
@@ -106,6 +121,11 @@ export class OrdersService {
     private readonly shahiRegionAssignmentService: RegionAssignmentService,
     private readonly shahiSubInventorymanagementService: SubInventorymanagementService,
     private readonly shahiSubCategoryService: SubCategoryService,
+    private readonly shahiRegionInfoService: RegionInfoService,
+    private readonly shahiDistributorAssignmentService: DistributorAssignmentService,
+    private readonly shahiCityService: CityService,
+    private readonly shahiTerritoryMangmentService: TerritoryMangmentService,
+    private readonly shahiRegionAssignmentCityService: RegionAssignmentCityService,
 
     @Inject('OrderRepositoryInterface')
     private readonly orderRepo: OrderRepository,
@@ -178,6 +198,21 @@ export class OrdersService {
     private readonly subInventoryManagementRepo: SubInventoryManagementRepositoryInterface,
     @Inject('RegionAssignmentRepositoryInterface')
     private readonly subCategoryRepo: SubCategoryRepositoryInterface,
+
+    @Inject('RegionAssignmentRepositoryInterface')
+    private readonly regionInfoRepo: RegionsInfoRepositoryInterface,
+
+    @Inject('DistributorsAssignmentRepositoryInterface')
+    private readonly distributorsAssignmentRepo: DistributorsAssignmentRepositoryInterface,
+
+    @Inject('CityRepositoryInterface')
+    private readonly cityRepo: CityRepositoryInterface,
+
+    @Inject('TerritoryManagementRepositoryInterface')
+    private readonly territoryManagementRepo: TerritoryManagementRepositoryInterface,
+
+    @Inject('RegionAssignmentCityRepositoryInterface')
+    private readonly regionAssignmentCityRepo: RegionAssignmentCityRepositoryInterface,
   ) {}
 
   async getOrders(): Promise<OrderContent[]> {
@@ -555,6 +590,58 @@ export class OrdersService {
       await Helper.saveDataInchunksIntoWherehouseDb<SubCategory>(
         data,
         this.subCategoryRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateRegionsInfo(): Promise<RegionsInfo[]> {
+    const data = await this.shahiRegionInfoService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<RegionsInfo>(
+        data,
+        this.regionInfoRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateDistributorsAssignment(): Promise<DistributorsAssignment[]> {
+    const data = await this.shahiDistributorAssignmentService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<DistributorsAssignment>(
+        data,
+        this.distributorsAssignmentRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateCity(): Promise<City[]> {
+    const data = await this.shahiCityService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<City>(data, this.cityRepo);
+    }
+    return null;
+  }
+
+  async migrateTerritoryManagement(): Promise<TerritoryManagement[]> {
+    const data = await this.shahiTerritoryMangmentService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<TerritoryManagement>(
+        data,
+        this.territoryManagementRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateRegionAssignmentCity(): Promise<RegionAssignmentCity[]> {
+    const data = await this.shahiRegionAssignmentCityService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<RegionAssignmentCity>(
+        data,
+        this.regionAssignmentCityRepo,
       );
     }
     return null;

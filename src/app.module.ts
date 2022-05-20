@@ -38,7 +38,6 @@ import { ConfigModule } from '@nestjs/config';
       }),
     }),
     OrdersModule,
-    // OrderModule,
   ],
   providers: [
     {

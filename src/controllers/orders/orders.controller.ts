@@ -174,4 +174,29 @@ export class OrdersController {
   async migrateSubCategory() {
     return await this.orderService.migrateSubCategory();
   }
+
+  @Get('migrateRegionsInfo')
+  async migrateRegionsInfo() {
+    return await this.orderService.migrateRegionsInfo();
+  }
+
+  @Get('migrateDistributorsAssignment')
+  async migrateDistributorsAssignment() {
+    return await this.orderService.migrateDistributorsAssignment();
+  }
+
+  @Get('migrateCity')
+  async migrateCity() {
+    return await this.orderService.migrateCity();
+  }
+
+  @Get('migrateTerritoryManagement')
+  async migrateTerritoryManagement() {
+    return await this.orderService.migrateTerritoryManagement();
+  }
+
+  @Get('migrateRegionAssignmentCity')
+  async migrateRegionAssignmentCity() {
+    return await this.orderService.migrateRegionAssignmentCity();
+  }
 }
