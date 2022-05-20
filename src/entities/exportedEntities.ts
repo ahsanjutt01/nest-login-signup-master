@@ -2,6 +2,7 @@
 import Ams from './ams';
 import AreaAssignment from './areaAssignment';
 import AreaAssignmentLocalitie from './areaAssignmentLocalitie';
+import AreaManagement from './areaManagement';
 import bookedOrderContent from './bookedOrderContent';
 import Brand from './brand';
 import City from './city';
@@ -77,6 +78,7 @@ const entities = [
   Scheme,
   Segment,
   VisitsMark,
+  AreaManagement,
 ];
 
 export default entities;

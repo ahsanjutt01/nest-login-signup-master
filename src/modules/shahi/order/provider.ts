@@ -1,6 +1,7 @@
 import { AmsLiveRepository } from 'src/repositories/ams/ams.live.repository';
 import { AreaAssignmentLocalitieLiveRepository } from 'src/repositories/area-assignment-locality/areaAssignmentLocality.live.repository';
 import { AreaAssignmentLiveRepository } from 'src/repositories/area-assignment/areaAssignment.live.repository';
+import { AreaManagementLiveRepository } from 'src/repositories/area-management/areaMangement.live.repository';
 import { BrandLiveRepository } from 'src/repositories/brand/brand.live.repository';
 import { CityLiveRepository } from 'src/repositories/city/city.live.repository';
 import { DesignationLiveRepository } from 'src/repositories/designation/designation.live.repository';
@@ -37,6 +38,7 @@ import { VisitsMarkLiveRepository } from 'src/repositories/visit-mark/visitMark.
 import { AmsService } from 'src/services/shahi/ams/ams.service';
 import { AreaAssignmentLocalityService } from 'src/services/shahi/area-assignment-locality/area-assignment-locality.service';
 import { AreaAssignmentService } from 'src/services/shahi/area-assignment/area-assignment.service';
+import { AreaManagementService } from 'src/services/shahi/area-management/area-management.service';
 import { BrandsService } from 'src/services/shahi/brands/brands.service';
 import { CityService } from 'src/services/shahi/city/city.service';
 import { DesignationService } from 'src/services/shahi/designation/designation.service';
@@ -73,6 +75,7 @@ import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.servi
 
 export const Provider = [
   SchemeService,
+  AreaManagementService,
   SegmentService,
   OrderContentService,
   ProvinceService,
@@ -258,5 +261,9 @@ export const Provider = [
   {
     provide: 'SegmentRepositoryInterface',
     useClass: SegmentLiveRepository,
+  },
+  {
+    provide: 'AreaManagementRepositoryInterface',
+    useClass: AreaManagementLiveRepository,
   },
 ];

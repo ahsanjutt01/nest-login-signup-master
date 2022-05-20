@@ -12,8 +12,8 @@ export class AreaManagementRepository
 {
   constructor(
     @InjectRepository(AreaManagement)
-    private readonly areaManagementRepository: Repository<AreaManagement>,
+    private readonly AreaManagementRepository: Repository<AreaManagement>,
   ) {
-    super(areaManagementRepository);
+    super(AreaManagementRepository);
   }
 }

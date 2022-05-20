@@ -212,4 +212,9 @@ export class OrdersController {
   async migrateSegment() {
     return await this.orderService.migrateSegment();
   }
+
+  @Get('migrateAreaManagement')
+  async migrateAreaManagement() {
+    return await this.orderService.migrateAreaManagement();
+  }
 }

@@ -4,6 +4,7 @@ import entities from 'src/entities/exportedEntities';
 import { AmsService } from 'src/services/shahi/ams/ams.service';
 import { AreaAssignmentLocalityService } from 'src/services/shahi/area-assignment-locality/area-assignment-locality.service';
 import { AreaAssignmentService } from 'src/services/shahi/area-assignment/area-assignment.service';
+import { AreaManagementService } from 'src/services/shahi/area-management/area-management.service';
 import { BrandsService } from 'src/services/shahi/brands/brands.service';
 import { CityService } from 'src/services/shahi/city/city.service';
 import { DesignationService } from 'src/services/shahi/designation/designation.service';
@@ -43,6 +44,7 @@ import { Provider } from './provider';
   imports: [TypeOrmModule.forFeature(entities, 'shahi')],
   providers: Provider,
   exports: [
+    AreaManagementService,
     SegmentService,
     SchemeService,
     ProvinceService,

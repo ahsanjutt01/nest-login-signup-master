@@ -12,8 +12,8 @@ export class AreaManagementLiveRepository
 {
   constructor(
     @InjectRepository(AreaManagement, 'shahi')
-    public readonly areaManagementLiveRepository: Repository<AreaManagement>,
+    public readonly AreaManagementLiveRepository: Repository<AreaManagement>,
   ) {
-    super(areaManagementLiveRepository);
+    super(AreaManagementLiveRepository);
   }
 }

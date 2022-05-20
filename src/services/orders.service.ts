@@ -103,6 +103,9 @@ import Scheme from 'src/entities/scheme';
 import { SegmentService } from './shahi/segment/segment.service';
 import { SegmentRepositoryInterface } from 'src/repositories/segment/segment.reposiory.interface';
 import Segment from 'src/entities/segment';
+import { AreaManagementService } from './shahi/area-management/area-management.service';
+import { AreaManagementRepositoryInterface } from 'src/repositories/area-management/areaMangement.reposiory.interface';
+import AreaManagement from 'src/entities/areaManagement';
 
 @Injectable()
 export class OrdersService {
@@ -142,9 +145,13 @@ export class OrdersService {
     private readonly shahiProvinceService: ProvinceService,
     private readonly shahiSchemeService: SchemeService,
     private readonly shahiSegmentService: SegmentService,
+    private readonly shahiAreaManagementService: AreaManagementService,
 
     @Inject('SchemeRepositoryInterface')
     private readonly SchemeRepo: SchemeRepositoryInterface,
+
+    @Inject('AreaManagementRepositoryInterface')
+    private readonly areamanagementRepo: AreaManagementRepositoryInterface,
 
     @Inject('SegmentRepositoryInterface')
     private readonly segmentRepo: SegmentRepositoryInterface,
@@ -714,6 +721,17 @@ export class OrdersService {
       await Helper.saveDataInchunksIntoWherehouseDb<Segment>(
         data,
         this.segmentRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateAreaManagement(): Promise<AreaManagement[]> {
+    const data = await this.shahiAreaManagementService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<AreaManagement>(
+        data,
+        this.areamanagementRepo,
       );
     }
     return null;

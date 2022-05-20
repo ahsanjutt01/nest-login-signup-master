@@ -174,10 +174,6 @@ export const Provider = [
     provide: 'RegionAssignmentCityRepositoryInterface',
     useClass: RegionAssignmentCityRepository,
   },
-  // {
-  //   provide: 'AreaManagementRepositoryInterface',
-  //   useClass: AreaManagementRepository,
-  // },
 
   {
     provide: 'DesignationRepositoryInterface',
@@ -197,5 +193,9 @@ export const Provider = [
   {
     provide: 'SegmentRepositoryInterface',
     useClass: SegmentRepository,
+  },
+  {
+    provide: 'AreaManagementRepositoryInterface',
+    useClass: AreaManagementRepository,
   },
 ];
