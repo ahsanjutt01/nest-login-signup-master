@@ -1,4 +1,3 @@
-// segments
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 // TODO: relationship
 @Entity({

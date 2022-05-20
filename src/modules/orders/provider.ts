@@ -1,8 +1,10 @@
 import { AmsRepository } from 'src/repositories/ams/ams.repository';
 import { AreaAssignmentLocalitieRepository } from 'src/repositories/area-assignment-locality/areaAssignmentLocality.repository';
 import { AreaAssignmentRepository } from 'src/repositories/area-assignment/areaAssignment.repository';
+import { AreaManagementRepository } from 'src/repositories/area-management/areaMangement.repository';
 import { BrandRepository } from 'src/repositories/brand/brand.repository';
 import { CityRepository } from 'src/repositories/city/city.repository';
+import { DesignationRepository } from 'src/repositories/designation/designation.repository';
 import { DistributorsAssignmentRepository } from 'src/repositories/distributor-assignment/distributorAssignment.repository';
 import { DistributorProductsMarginRepository } from 'src/repositories/distributor-product-margin/distributorProductMargin.repository';
 import { DistributorReturnedProductRepository } from 'src/repositories/distributor-returned-product/distributorReturnedProduct.repository';
@@ -15,6 +17,7 @@ import { OrderContentRepository } from 'src/repositories/order-content/orderCont
 import { OrderRepository } from 'src/repositories/order/order.repository';
 import { PosMaterialItemRepository } from 'src/repositories/pos-material-item/posMaterialItem.repository';
 import { PosMaterialRetailerRepository } from 'src/repositories/pos-material-retailers/posMaterialRetailer.repository';
+import { ProvinceRepository } from 'src/repositories/province/province.repository';
 import { RegionAssignmentCityRepository } from 'src/repositories/region-assignment-city/regionAssignmentCity.repository';
 import { RegionAssignmentRepository } from 'src/repositories/region-assignment/regionAssignment.repository';
 import { RegionsInfoRepository } from 'src/repositories/region-info/regionInfo.repository';
@@ -22,6 +25,8 @@ import { RetailersDetailRepository } from 'src/repositories/retailer-detail/reta
 import { RetailerTypeRepository } from 'src/repositories/retailer-type/retailerType.repository';
 import { RouteAssignmentRepository } from 'src/repositories/route-assignment/routeAssignment.repository';
 import { RouteRetailerRepository } from 'src/repositories/route-retailer/routeRetailer.repository';
+import { SchemeRepository } from 'src/repositories/scheme/scheme.repository';
+import { SegmentRepository } from 'src/repositories/segment/segment.repository';
 import { SimilarityIndexResultRepository } from 'src/repositories/similarity-index-result/similiarityIndexResult.repository';
 import { SpecialDiscountRepository } from 'src/repositories/special-discount/specialDiscount.repository';
 import { StockMangementRepository } from 'src/repositories/stock-mangement/stockMangement.repository';
@@ -168,5 +173,29 @@ export const Provider = [
   {
     provide: 'RegionAssignmentCityRepositoryInterface',
     useClass: RegionAssignmentCityRepository,
+  },
+  // {
+  //   provide: 'AreaManagementRepositoryInterface',
+  //   useClass: AreaManagementRepository,
+  // },
+
+  {
+    provide: 'DesignationRepositoryInterface',
+    useClass: DesignationRepository,
+  },
+
+  {
+    provide: 'ProvinceRepositoryInterface',
+    useClass: ProvinceRepository,
+  },
+
+  {
+    provide: 'SchemeRepositoryInterface',
+    useClass: SchemeRepository,
+  },
+
+  {
+    provide: 'SegmentRepositoryInterface',
+    useClass: SegmentRepository,
   },
 ];

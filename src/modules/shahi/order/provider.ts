@@ -3,6 +3,7 @@ import { AreaAssignmentLocalitieLiveRepository } from 'src/repositories/area-ass
 import { AreaAssignmentLiveRepository } from 'src/repositories/area-assignment/areaAssignment.live.repository';
 import { BrandLiveRepository } from 'src/repositories/brand/brand.live.repository';
 import { CityLiveRepository } from 'src/repositories/city/city.live.repository';
+import { DesignationLiveRepository } from 'src/repositories/designation/designation.live.repository';
 import { DistributorsAssignmentLiveRepository } from 'src/repositories/distributor-assignment/distributorAssignment.live.repository';
 import { DistributorProductsMarginLiveRepository } from 'src/repositories/distributor-product-margin/distributorProductMargin.live.repository';
 import { DistributorReturnedProductLiveRepository } from 'src/repositories/distributor-returned-product/distributorReturnedProduct.live.repository';
@@ -15,6 +16,7 @@ import { OrderContentLiveRepository } from 'src/repositories/order-content/order
 import { OrderLiveRepository } from 'src/repositories/order/order.live.repository';
 import { PosMaterialItemLiveRepository } from 'src/repositories/pos-material-item/posMaterialItem.live.repository';
 import { PosMaterialRetailerLiveRepository } from 'src/repositories/pos-material-retailers/posMaterialRetailer.live.repository';
+import { ProvinceLiveRepository } from 'src/repositories/province/province.live.repository';
 import { RegionAssignmentCityLiveRepository } from 'src/repositories/region-assignment-city/regionAssignmentCity.live.repository';
 import { RegionAssignmentLiveRepository } from 'src/repositories/region-assignment/regionAssignment.live.repository';
 import { RegionsInfoLiveRepository } from 'src/repositories/region-info/regionInfo.live.repository';
@@ -22,6 +24,8 @@ import { RetailersDetailLiveRepository } from 'src/repositories/retailer-detail/
 import { RetailerTypeLiveRepository } from 'src/repositories/retailer-type/retailerType.live.repository';
 import { RouteAssignmentLiveRepository } from 'src/repositories/route-assignment/routeAssignment.live.repository';
 import { RouteRetailerLiveRepository } from 'src/repositories/route-retailer/routeRetailer.live.repository';
+import { SchemeLiveRepository } from 'src/repositories/scheme/scheme.live.repository';
+import { SegmentLiveRepository } from 'src/repositories/segment/segment.live.repository';
 import { SimilarityIndexResultLiveRepository } from 'src/repositories/similarity-index-result/similiarityIndexResult.live.repository';
 import { SpecialDiscountLiveRepository } from 'src/repositories/special-discount/specialDiscount.live.repository';
 import { StockMangementLiveRepository } from 'src/repositories/stock-mangement/stockMangement.live.repository';
@@ -35,6 +39,7 @@ import { AreaAssignmentLocalityService } from 'src/services/shahi/area-assignmen
 import { AreaAssignmentService } from 'src/services/shahi/area-assignment/area-assignment.service';
 import { BrandsService } from 'src/services/shahi/brands/brands.service';
 import { CityService } from 'src/services/shahi/city/city.service';
+import { DesignationService } from 'src/services/shahi/designation/designation.service';
 import { DistributorAssignmentService } from 'src/services/shahi/distributor-assignment/distributor-assignment.service';
 import { DistributorProductsMarginService } from 'src/services/shahi/distributor-products-margin/distributor-products-margin.service';
 import { DistributorReturnedProductService } from 'src/services/shahi/distributor-returned-product/distributor-returned-product.service';
@@ -47,6 +52,7 @@ import OrderContentService from 'src/services/shahi/order-content/order-content.
 import { OrderService } from 'src/services/shahi/order/order.service';
 import { PosMaterialItemService } from 'src/services/shahi/pos-material-item/pos-material-item.service';
 import { PosMaterialRetailersService } from 'src/services/shahi/pos-material-retailers/pos-material-retailers.service';
+import { ProvinceService } from 'src/services/shahi/province/province.service';
 import { RegionAssignmentCityService } from 'src/services/shahi/region-assignment-city/region-assignment-city.service';
 import { RegionAssignmentService } from 'src/services/shahi/region-assignment/region-assignment.service';
 import { RegionInfoService } from 'src/services/shahi/region-info/region-info.service';
@@ -54,6 +60,8 @@ import { RetailerDetailService } from 'src/services/shahi/retailer-detail/retail
 import { RetailerTypeService } from 'src/services/shahi/retailer-type/retailer-type.service';
 import { RouteAssignmentService } from 'src/services/shahi/route-assignment/route-assignment.service';
 import { RouteRetailerService } from 'src/services/shahi/route-retailer/route-retailer.service';
+import { SchemeService } from 'src/services/shahi/scheme/scheme.service';
+import { SegmentService } from 'src/services/shahi/segment/segment.service';
 import { SimilarityIndexResultService } from 'src/services/shahi/similarity-index-result/similarity-index-result.service';
 import { SpecialDiscountService } from 'src/services/shahi/special-discount/special-discount.service';
 import { StockMangementService } from 'src/services/shahi/stock-mangement/stock-mangement.service';
@@ -64,7 +72,10 @@ import { TerritoryMangmentService } from 'src/services/shahi/territory-mangment/
 import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.service';
 
 export const Provider = [
+  SchemeService,
+  SegmentService,
   OrderContentService,
+  ProvinceService,
   OrderService,
   VisitMarkService,
   RetailerDetailService,
@@ -96,6 +107,7 @@ export const Provider = [
   CityService,
   TerritoryMangmentService,
   RegionAssignmentCityService,
+  DesignationService,
   {
     provide: 'AmsRepositoryInterface',
     useClass: AmsLiveRepository,
@@ -228,5 +240,23 @@ export const Provider = [
   {
     provide: 'RegionAssignmentCityRepositoryInterface',
     useClass: RegionAssignmentCityLiveRepository,
+  },
+
+  {
+    provide: 'DesignationRepositoryInterface',
+    useClass: DesignationLiveRepository,
+  },
+  {
+    provide: 'ProvinceRepositoryInterface',
+    useClass: ProvinceLiveRepository,
+  },
+
+  {
+    provide: 'SchemeRepositoryInterface',
+    useClass: SchemeLiveRepository,
+  },
+  {
+    provide: 'SegmentRepositoryInterface',
+    useClass: SegmentLiveRepository,
   },
 ];

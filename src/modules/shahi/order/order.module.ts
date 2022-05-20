@@ -6,6 +6,7 @@ import { AreaAssignmentLocalityService } from 'src/services/shahi/area-assignmen
 import { AreaAssignmentService } from 'src/services/shahi/area-assignment/area-assignment.service';
 import { BrandsService } from 'src/services/shahi/brands/brands.service';
 import { CityService } from 'src/services/shahi/city/city.service';
+import { DesignationService } from 'src/services/shahi/designation/designation.service';
 import { DistributorAssignmentService } from 'src/services/shahi/distributor-assignment/distributor-assignment.service';
 import { DistributorProductsMarginService } from 'src/services/shahi/distributor-products-margin/distributor-products-margin.service';
 import { DistributorReturnedProductService } from 'src/services/shahi/distributor-returned-product/distributor-returned-product.service';
@@ -18,6 +19,7 @@ import OrderContentService from 'src/services/shahi/order-content/order-content.
 import { OrderService } from 'src/services/shahi/order/order.service';
 import { PosMaterialItemService } from 'src/services/shahi/pos-material-item/pos-material-item.service';
 import { PosMaterialRetailersService } from 'src/services/shahi/pos-material-retailers/pos-material-retailers.service';
+import { ProvinceService } from 'src/services/shahi/province/province.service';
 import { RegionAssignmentCityService } from 'src/services/shahi/region-assignment-city/region-assignment-city.service';
 import { RegionAssignmentService } from 'src/services/shahi/region-assignment/region-assignment.service';
 import { RegionInfoService } from 'src/services/shahi/region-info/region-info.service';
@@ -25,6 +27,8 @@ import { RetailerDetailService } from 'src/services/shahi/retailer-detail/retail
 import { RetailerTypeService } from 'src/services/shahi/retailer-type/retailer-type.service';
 import { RouteAssignmentService } from 'src/services/shahi/route-assignment/route-assignment.service';
 import { RouteRetailerService } from 'src/services/shahi/route-retailer/route-retailer.service';
+import { SchemeService } from 'src/services/shahi/scheme/scheme.service';
+import { SegmentService } from 'src/services/shahi/segment/segment.service';
 import { SimilarityIndexResultService } from 'src/services/shahi/similarity-index-result/similarity-index-result.service';
 import { SpecialDiscountService } from 'src/services/shahi/special-discount/special-discount.service';
 import { StockMangementService } from 'src/services/shahi/stock-mangement/stock-mangement.service';
@@ -39,6 +43,9 @@ import { Provider } from './provider';
   imports: [TypeOrmModule.forFeature(entities, 'shahi')],
   providers: Provider,
   exports: [
+    SegmentService,
+    SchemeService,
+    ProvinceService,
     OrderContentService,
     OrderService,
     VisitMarkService,
@@ -71,6 +78,7 @@ import { Provider } from './provider';
     CityService,
     TerritoryMangmentService,
     RegionAssignmentCityService,
+    DesignationService,
   ],
 })
 export default class OrderModule {}

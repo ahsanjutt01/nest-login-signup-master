@@ -25,9 +25,10 @@ export default class Designation {
   @Column({
     name: 'flags',
     nullable: true,
-    type: 'tinyint',
+    type: 'bool',
+    width: 1,
   })
-  flags: number;
+  flags: boolean;
 
   @Column({
     name: 'created_by',

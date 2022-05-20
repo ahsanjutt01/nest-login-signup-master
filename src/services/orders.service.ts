@@ -91,6 +91,18 @@ import TerritoryManagement from 'src/entities/territoryManagement';
 import RegionAssignmentCity from 'src/entities/regionAssignmentCity';
 import { RegionAssignmentCityRepositoryInterface } from 'src/repositories/region-assignment-city/regionAssignmentCity.reposiory.interface';
 import { RegionAssignmentCityService } from './shahi/region-assignment-city/region-assignment-city.service';
+import { DesignationService } from './shahi/designation/designation.service';
+import { DesignationRepositoryInterface } from 'src/repositories/designation/designation.reposiory.interface';
+import Designation from 'src/entities/designation';
+import { ProvinceService } from './shahi/province/province.service';
+import { ProvinceRepositoryInterface } from 'src/repositories/province/province.reposiory.interface';
+import Province from 'src/entities/province';
+import { SchemeService } from './shahi/scheme/scheme.service';
+import { SchemeRepositoryInterface } from 'src/repositories/scheme/scheme.reposiory.interface';
+import Scheme from 'src/entities/scheme';
+import { SegmentService } from './shahi/segment/segment.service';
+import { SegmentRepositoryInterface } from 'src/repositories/segment/segment.reposiory.interface';
+import Segment from 'src/entities/segment';
 
 @Injectable()
 export class OrdersService {
@@ -126,6 +138,19 @@ export class OrdersService {
     private readonly shahiCityService: CityService,
     private readonly shahiTerritoryMangmentService: TerritoryMangmentService,
     private readonly shahiRegionAssignmentCityService: RegionAssignmentCityService,
+    private readonly shahiDesignationService: DesignationService,
+    private readonly shahiProvinceService: ProvinceService,
+    private readonly shahiSchemeService: SchemeService,
+    private readonly shahiSegmentService: SegmentService,
+
+    @Inject('SchemeRepositoryInterface')
+    private readonly SchemeRepo: SchemeRepositoryInterface,
+
+    @Inject('SegmentRepositoryInterface')
+    private readonly segmentRepo: SegmentRepositoryInterface,
+
+    @Inject('ProvinceRepositoryInterface')
+    private readonly provinceRepo: ProvinceRepositoryInterface,
 
     @Inject('OrderRepositoryInterface')
     private readonly orderRepo: OrderRepository,
@@ -213,6 +238,9 @@ export class OrdersService {
 
     @Inject('RegionAssignmentCityRepositoryInterface')
     private readonly regionAssignmentCityRepo: RegionAssignmentCityRepositoryInterface,
+
+    @Inject('DesignationRepositoryInterface')
+    private readonly designationRepo: DesignationRepositoryInterface,
   ) {}
 
   async getOrders(): Promise<OrderContent[]> {
@@ -642,6 +670,50 @@ export class OrdersService {
       await Helper.saveDataInchunksIntoWherehouseDb<RegionAssignmentCity>(
         data,
         this.regionAssignmentCityRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateDesignation(): Promise<Designation[]> {
+    const data = await this.shahiDesignationService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<Designation>(
+        data,
+        this.designationRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateProvince(): Promise<Province[]> {
+    const data = await this.shahiProvinceService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<Province>(
+        data,
+        this.provinceRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateScheme(): Promise<Scheme[]> {
+    const data = await this.shahiSchemeService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<Scheme>(
+        data,
+        this.SchemeRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateSegment(): Promise<Segment[]> {
+    const data = await this.shahiSegmentService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<Segment>(
+        data,
+        this.segmentRepo,
       );
     }
     return null;

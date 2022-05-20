@@ -9,7 +9,7 @@ export default class Province {
 
   @Column({
     name: 'name',
-    nullable: true,
+    nullable: false,
     type: 'varchar',
     length: 100,
   })

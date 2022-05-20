@@ -18,7 +18,7 @@ export default class Scheme {
     name: 'title',
     nullable: true,
     type: 'varchar',
-    length: 100,
+    length: 300,
   })
   title: string;
   @Column({
@@ -36,19 +36,20 @@ export default class Scheme {
   @Column({
     name: 'discount_on_tp',
     nullable: true,
-    type: 'int',
+    type: 'double',
   })
   discount_on_tp: number;
   @Column({
     name: 'gift_name',
     nullable: true,
     type: 'varchar',
+    length: 300,
   })
   gift_name: string;
   @Column({
     name: 'gift_value',
     nullable: true,
-    type: 'int',
+    type: 'double',
   })
   gift_value: number;
   @Column({
@@ -75,9 +76,10 @@ export default class Scheme {
   @Column({
     name: 'scheme_rule',
     nullable: true,
-    type: 'tinyint',
+    type: 'bool',
+    width: 1,
   })
-  scheme_rule: number;
+  scheme_rule: boolean;
   @Column({
     name: 'scheme_type',
     nullable: true,

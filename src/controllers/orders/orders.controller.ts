@@ -1,14 +1,7 @@
 import { SpacesService } from './../../services/spaces.service';
 import { S3AssetsDto } from '../../dto/S3AssetsDto';
 import { Controller, Post, Body, Get, Query, Param } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiProperty,
-  ApiOkResponse,
-  ApiBody,
-  ApiParam,
-} from '@nestjs/swagger';
-// import { OrdersService } from 'src/services/orders.service';
+import { ApiTags, ApiBody, ApiParam } from '@nestjs/swagger';
 import ShahiOrderContentService from 'src/services/shahi/order-content/order-content.service';
 import { OrdersService } from 'src/services/orders.service';
 
@@ -198,5 +191,25 @@ export class OrdersController {
   @Get('migrateRegionAssignmentCity')
   async migrateRegionAssignmentCity() {
     return await this.orderService.migrateRegionAssignmentCity();
+  }
+
+  @Get('migrateDesignation')
+  async migrateDesignation() {
+    return await this.orderService.migrateDesignation();
+  }
+
+  @Get('migrateProvince')
+  async migrateProvince() {
+    return await this.orderService.migrateProvince();
+  }
+
+  @Get('migrateScheme')
+  async migrateScheme() {
+    return await this.orderService.migrateScheme();
+  }
+
+  @Get('migrateSegment')
+  async migrateSegment() {
+    return await this.orderService.migrateSegment();
   }
 }
