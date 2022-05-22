@@ -1,13 +1,17 @@
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/exception.filter';
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersModule } from './modules/orders/orders.module';
 import entities from './entities/exportedEntities';
 import { ConfigModule } from '@nestjs/config';
+import { TasksServiceService } from './services/-tasks-service/-tasks-service.service';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -44,6 +48,7 @@ import { ConfigModule } from '@nestjs/config';
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
     },
+    TasksServiceService,
   ],
   controllers: [],
 })

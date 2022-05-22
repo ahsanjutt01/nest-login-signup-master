@@ -28,6 +28,7 @@ import { RetailerDetailService } from 'src/services/shahi/retailer-detail/retail
 import { RetailerTypeService } from 'src/services/shahi/retailer-type/retailer-type.service';
 import { RouteAssignmentService } from 'src/services/shahi/route-assignment/route-assignment.service';
 import { RouteRetailerService } from 'src/services/shahi/route-retailer/route-retailer.service';
+import { SchemeAssignmentService } from 'src/services/shahi/scheme-assignment/scheme-assignment.service';
 import { SchemeService } from 'src/services/shahi/scheme/scheme.service';
 import { SegmentService } from 'src/services/shahi/segment/segment.service';
 import { SimilarityIndexResultService } from 'src/services/shahi/similarity-index-result/similarity-index-result.service';
@@ -81,6 +82,7 @@ import { Provider } from './provider';
     TerritoryMangmentService,
     RegionAssignmentCityService,
     DesignationService,
+    SchemeAssignmentService,
   ],
 })
 export default class OrderModule {}

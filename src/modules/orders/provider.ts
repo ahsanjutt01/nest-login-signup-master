@@ -25,6 +25,7 @@ import { RetailersDetailRepository } from 'src/repositories/retailer-detail/reta
 import { RetailerTypeRepository } from 'src/repositories/retailer-type/retailerType.repository';
 import { RouteAssignmentRepository } from 'src/repositories/route-assignment/routeAssignment.repository';
 import { RouteRetailerRepository } from 'src/repositories/route-retailer/routeRetailer.repository';
+import { SchemeAssignmentRepository } from 'src/repositories/scheme-assignment/schemeAssignment.repository';
 import { SchemeRepository } from 'src/repositories/scheme/scheme.repository';
 import { SegmentRepository } from 'src/repositories/segment/segment.repository';
 import { SimilarityIndexResultRepository } from 'src/repositories/similarity-index-result/similiarityIndexResult.repository';
@@ -197,5 +198,9 @@ export const Provider = [
   {
     provide: 'AreaManagementRepositoryInterface',
     useClass: AreaManagementRepository,
+  },
+  {
+    provide: 'SchemeAssignmentRepositoryInterface',
+    useClass: SchemeAssignmentRepository,
   },
 ];

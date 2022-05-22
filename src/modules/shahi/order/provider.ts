@@ -25,6 +25,7 @@ import { RetailersDetailLiveRepository } from 'src/repositories/retailer-detail/
 import { RetailerTypeLiveRepository } from 'src/repositories/retailer-type/retailerType.live.repository';
 import { RouteAssignmentLiveRepository } from 'src/repositories/route-assignment/routeAssignment.live.repository';
 import { RouteRetailerLiveRepository } from 'src/repositories/route-retailer/routeRetailer.live.repository';
+import { SchemeAssignmentLiveRepository } from 'src/repositories/scheme-assignment/schemeAssignment.live.repository';
 import { SchemeLiveRepository } from 'src/repositories/scheme/scheme.live.repository';
 import { SegmentLiveRepository } from 'src/repositories/segment/segment.live.repository';
 import { SimilarityIndexResultLiveRepository } from 'src/repositories/similarity-index-result/similiarityIndexResult.live.repository';
@@ -62,6 +63,7 @@ import { RetailerDetailService } from 'src/services/shahi/retailer-detail/retail
 import { RetailerTypeService } from 'src/services/shahi/retailer-type/retailer-type.service';
 import { RouteAssignmentService } from 'src/services/shahi/route-assignment/route-assignment.service';
 import { RouteRetailerService } from 'src/services/shahi/route-retailer/route-retailer.service';
+import { SchemeAssignmentService } from 'src/services/shahi/scheme-assignment/scheme-assignment.service';
 import { SchemeService } from 'src/services/shahi/scheme/scheme.service';
 import { SegmentService } from 'src/services/shahi/segment/segment.service';
 import { SimilarityIndexResultService } from 'src/services/shahi/similarity-index-result/similarity-index-result.service';
@@ -75,6 +77,7 @@ import { VisitMarkService } from 'src/services/shahi/visit-mark/visit-mark.servi
 
 export const Provider = [
   SchemeService,
+  SchemeAssignmentService,
   AreaManagementService,
   SegmentService,
   OrderContentService,
@@ -265,5 +268,9 @@ export const Provider = [
   {
     provide: 'AreaManagementRepositoryInterface',
     useClass: AreaManagementLiveRepository,
+  },
+  {
+    provide: 'SchemeAssignmentRepositoryInterface',
+    useClass: SchemeAssignmentLiveRepository,
   },
 ];

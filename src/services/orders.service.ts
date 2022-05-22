@@ -31,19 +31,6 @@ import { AmsService } from './shahi/ams/ams.service';
 import Ams from 'src/entities/ams';
 import { AmsRepositoryInterface } from 'src/repositories/ams/ams.reposiory.interface';
 import { PosMaterialRetailerRepositoryInterface } from 'src/repositories/pos-material-retailers/posMaterialRetailer.reposiory.interface';
-import { SimilarityIndexResultRepository } from 'src/repositories/similarity-index-result/similiarityIndexResult.repository';
-import { StockMangementRepository } from 'src/repositories/stock-mangement/stockMangement.repository';
-import { RetailerTypeRepository } from 'src/repositories/retailer-type/retailerType.repository';
-import { BrandRepository } from 'src/repositories/brand/brand.repository';
-import { NeighbourhoodRepository } from 'src/repositories/neighbourhood/neighbourhood.repository';
-import { SpecialDiscountRepository } from 'src/repositories/special-discount/specialDiscount.repository';
-import { InventoryPrefernceRepository } from 'src/repositories/inventory-preference/inventoryPreference.repository';
-import { DistributorReturnedProductRepository } from 'src/repositories/distributor-returned-product/distributorReturnedProduct.repository';
-import { EmployeeInfoRepository } from 'src/repositories/employee-info/employeeInfo.repository';
-import { InventoryTypesUnitsRepository } from 'src/repositories/inventory-types-units/inventoryTypeUnit.repository';
-import { RouteAssignmentRepository } from 'src/repositories/route-assignment/routeAssignment.repository';
-import { RetailersDetailRepository } from 'src/repositories/retailer-detail/retaillerDetail.repository';
-import { VisitsMarkRepository } from 'src/repositories/visit-mark/visitMark.repository';
 import { OrderRepository } from 'src/repositories/order/order.repository';
 import { Helper } from 'src/util/helper';
 import RouteRetailer from 'src/entities/routeRetailer';
@@ -106,6 +93,22 @@ import Segment from 'src/entities/segment';
 import { AreaManagementService } from './shahi/area-management/area-management.service';
 import { AreaManagementRepositoryInterface } from 'src/repositories/area-management/areaMangement.reposiory.interface';
 import AreaManagement from 'src/entities/areaManagement';
+import { VisitsMarkRepositoryInterface } from 'src/repositories/visit-mark/visitMark.reposiory.interface';
+import { RetailersDetailRepositoryInterface } from 'src/repositories/retailer-detail/retaillerDetail.reposiory.interface';
+import { RouteAssignmentRepositoryInterface } from 'src/repositories/route-assignment/routeAssignment.reposiory.interface';
+import { InventoryTypesUnitRepositoryInterface } from 'src/repositories/inventory-types-units/inventoryTypeUnit.reposiory.interface';
+import { EmployeeInfoRepositoryInterface } from 'src/repositories/employee-info/employeeInfo.reposiory.interface';
+import { DistributorReturnedProductRepositoryInterface } from 'src/repositories/distributor-returned-product/DistributorReturnedProduct.reposiory.interface';
+import { InventoryPreferenceRepositoryInterface } from 'src/repositories/inventory-preference/inventoryPreference.reposiory.interface';
+import { SpecialDiscountRepositoryInterface } from 'src/repositories/special-discount/specialDiscount.reposiory.interface';
+import { NeighbourhoodRepositoryInterface } from 'src/repositories/neighbourhood/neighbourhood.reposiory.interface';
+import { BrandRepositoryInterface } from 'src/repositories/brand/brand.reposiory.interface';
+import { RetailerTypeRepositoryInterface } from 'src/repositories/retailer-type/retailerType.reposiory.interface';
+import { StockMangementRepositoryInterface } from 'src/repositories/stock-mangement/stockMangement.reposiory.interface';
+import { SimilarityIndexResultRepositoryInterface } from 'src/repositories/similarity-index-result/similiarityIndexResult.reposiory.interface';
+import { SchemeAssignmentService } from './shahi/scheme-assignment/scheme-assignment.service';
+import { SchemeAssignmentRepositoryInterface } from 'src/repositories/scheme-assignment/schemeAssignment.reposiory.interface';
+import SchemeAssignment from 'src/entities/schemeAssignment';
 
 @Injectable()
 export class OrdersService {
@@ -146,6 +149,10 @@ export class OrdersService {
     private readonly shahiSchemeService: SchemeService,
     private readonly shahiSegmentService: SegmentService,
     private readonly shahiAreaManagementService: AreaManagementService,
+    private readonly shahiSchemeAssignmentService: SchemeAssignmentService,
+
+    @Inject('SchemeAssignmentRepositoryInterface')
+    private readonly schemeAssignmentRepo: SchemeAssignmentRepositoryInterface,
 
     @Inject('SchemeRepositoryInterface')
     private readonly SchemeRepo: SchemeRepositoryInterface,
@@ -163,46 +170,46 @@ export class OrdersService {
     private readonly orderRepo: OrderRepository,
 
     @Inject('VisitsMarkRepositoryInterface')
-    private readonly visitMarkRepo: VisitsMarkRepository,
+    private readonly visitMarkRepo: VisitsMarkRepositoryInterface,
 
     @Inject('RetailersDetailRepositoryInterface')
-    private readonly retailersDetailRepo: RetailersDetailRepository,
+    private readonly retailersDetailRepo: RetailersDetailRepositoryInterface,
 
     @Inject('RouteAssignmentRepositoryInterface')
-    private readonly routeAssignmentRepo: RouteAssignmentRepository,
+    private readonly routeAssignmentRepo: RouteAssignmentRepositoryInterface,
 
     @Inject('InventoryTypesUnitRepositoryInterface')
-    private readonly inventoryTypesUnitsRepo: InventoryTypesUnitsRepository,
+    private readonly inventoryTypesUnitsRepo: InventoryTypesUnitRepositoryInterface,
 
     @Inject('EmployeeInfoRepositoryInterface')
-    private readonly employeesInfoRepo: EmployeeInfoRepository,
+    private readonly employeesInfoRepo: EmployeeInfoRepositoryInterface,
 
     @Inject('DistributorReturnedProductRepositoryInterface')
-    private readonly distributorReturnedProductRepo: DistributorReturnedProductRepository,
+    private readonly distributorReturnedProductRepo: DistributorReturnedProductRepositoryInterface,
 
     @Inject('InventoryPreferenceRepositoryInterface')
-    private readonly inventoryPreferenceRepo: InventoryPrefernceRepository,
+    private readonly inventoryPreferenceRepo: InventoryPreferenceRepositoryInterface,
 
     @Inject('SpecialDiscountRepositoryInterface')
-    private readonly specialDiscountRepo: SpecialDiscountRepository,
+    private readonly specialDiscountRepo: SpecialDiscountRepositoryInterface,
 
     @Inject('NeighbourhoodRepositoryInterface')
-    private readonly neighbourhoodRepo: NeighbourhoodRepository,
+    private readonly neighbourhoodRepo: NeighbourhoodRepositoryInterface,
 
     @Inject('BrandRepositoryInterface')
-    private readonly brandRepo: BrandRepository,
+    private readonly brandRepo: BrandRepositoryInterface,
 
     @Inject('RetailerTypeRepositoryInterface')
-    private readonly retailerTypeRepo: RetailerTypeRepository,
+    private readonly retailerTypeRepo: RetailerTypeRepositoryInterface,
 
     @Inject('StockMangementRepositoryInterface')
-    private readonly stockMangementRepository: StockMangementRepository,
+    private readonly stockMangementRepository: StockMangementRepositoryInterface,
 
     @Inject('PosMaterialRetailerRepositoryInterface')
     private readonly posMaterialRetailerRepo: PosMaterialRetailerRepositoryInterface,
 
     @Inject('SimilarityIndexResultRepositoryInterface')
-    private readonly similarityIndexResultRepo: SimilarityIndexResultRepository,
+    private readonly similarityIndexResultRepo: SimilarityIndexResultRepositoryInterface,
 
     @Inject('AmsRepositoryInterface')
     private readonly amsRepo: AmsRepositoryInterface,
@@ -276,7 +283,7 @@ export class OrdersService {
     return null;
   }
 
-  async getAllOrders(): Promise<Order[]> {
+  async migrateOrders(): Promise<Order[]> {
     const data = await this.shahiOrderService.findByConditionWithRelations();
     // console.log(data[0]);
     const length = data.length;
@@ -297,7 +304,7 @@ export class OrdersService {
     return null;
   }
 
-  async getVisitMarked(): Promise<VisitsMark[]> {
+  async migrateVisitMarked(): Promise<VisitsMark[]> {
     const data = await this.shahiVisitMarkService.findAll();
     console.log(data.length);
     const length = data.length;
@@ -732,6 +739,17 @@ export class OrdersService {
       await Helper.saveDataInchunksIntoWherehouseDb<AreaManagement>(
         data,
         this.areamanagementRepo,
+      );
+    }
+    return null;
+  }
+
+  async migrateSchemeAssignment(): Promise<SchemeAssignment[]> {
+    const data = await this.shahiSchemeAssignmentService.findAll();
+    if (Helper.isLength(data)) {
+      await Helper.saveDataInchunksIntoWherehouseDb<SchemeAssignment>(
+        data,
+        this.schemeAssignmentRepo,
       );
     }
     return null;
