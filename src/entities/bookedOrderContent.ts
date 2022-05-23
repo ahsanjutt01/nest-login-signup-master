@@ -8,12 +8,13 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import Order from './Order';
+import BaseEntity from './_base.entity';
 
 // TODO: relationship
 @Entity({
   name: 'booked_order_contents',
 })
-export default class BookedOrderContent {
+export default class BookedOrderContent extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -301,19 +302,12 @@ export default class BookedOrderContent {
     type: 'datetime',
     default: () => 'NOW()',
   })
-  booking_date: string;
+  booking_date: Date;
   @Column({
     name: 'update_history',
     nullable: true,
   })
   update_history: string;
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: string;
   @Column({
     name: 'updated_by',
     nullable: true,

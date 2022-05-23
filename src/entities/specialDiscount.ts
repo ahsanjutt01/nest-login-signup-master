@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'special_discount',
 })
-export default class SpecialDiscount {
+export default class SpecialDiscount extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -36,12 +37,4 @@ export default class SpecialDiscount {
     nullable: true,
   })
   created_by: number;
-
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
 }

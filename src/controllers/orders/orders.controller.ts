@@ -45,12 +45,12 @@ export class OrdersController {
   }
   @Get('orders')
   async getOrders() {
-    return await this.orderService.getAllOrders();
+    return await this.orderService.migrateOrders();
   }
 
   @Get('visitMark')
   async getVisitMark() {
-    return await this.orderService.getVisitMarked();
+    return await this.orderService.migrateVisitMarked();
   }
 
   @Get('retaillerVisitMark')

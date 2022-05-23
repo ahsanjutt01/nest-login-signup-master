@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'order_bookers_targets',
 })
-export default class OrderBookersTarget {
+export default class OrderBookersTarget extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -86,18 +87,4 @@ export default class OrderBookersTarget {
     type: 'int',
   })
   updated_by: number;
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: number;
 }

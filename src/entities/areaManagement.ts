@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'area_management',
 })
-export default class AreaManagement {
+export default class AreaManagement extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

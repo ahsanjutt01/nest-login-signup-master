@@ -1,10 +1,11 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 
 // TODO: relationship
 @Entity({
   name: 'employees_info',
 })
-export default class EmployeesInfo {
+export default class EmployeesInfo extends BaseEntity {
   @Index()
   @PrimaryGeneratedColumn()
   employee_id: number;
@@ -314,24 +315,8 @@ export default class EmployeesInfo {
   loginStatus: boolean;
 
   @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  createdAt: string;
-
-  @Column({
     name: 'updated_by',
     nullable: true,
   })
   updatedBy: number;
-
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updatedAt: string;
 }

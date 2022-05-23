@@ -1,11 +1,12 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { InOutStatus } from './enums/inOutStatus';
 import { StockType } from './enums/stockType';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'stock_mangement',
 })
-export default class StockMangement {
+export default class StockMangement extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -103,18 +104,4 @@ export default class StockMangement {
     nullable: true,
   })
   is_opening_stock: number;
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: Date;
 }

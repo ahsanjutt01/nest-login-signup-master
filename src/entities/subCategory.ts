@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'sub_categories',
 })
-export default class SubCategory {
+export default class SubCategory extends BaseEntity {
   @PrimaryGeneratedColumn()
   sub_category_id: number;
 

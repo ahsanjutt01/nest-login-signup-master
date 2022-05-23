@@ -1,9 +1,10 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'distributor_returned_products',
 })
-export default class DistributorReturnedProduct {
+export default class DistributorReturnedProduct extends BaseEntity {
   @Index()
   @PrimaryGeneratedColumn()
   id: number;
@@ -96,12 +97,4 @@ export default class DistributorReturnedProduct {
     type: 'tinyint',
   })
   item_type: number;
-
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
 }

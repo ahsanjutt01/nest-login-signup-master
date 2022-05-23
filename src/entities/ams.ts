@@ -1,9 +1,10 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'ams',
 })
-export default class Ams {
+export default class Ams extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -57,14 +58,6 @@ export default class Ams {
     width: 1,
   })
   co_within_radius: boolean;
-  @Index()
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
 
   @Column({
     name: 'co_at',

@@ -1,9 +1,10 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'pos_material_retailers',
 })
-export default class PosMaterialRetailer {
+export default class PosMaterialRetailer extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -79,11 +80,4 @@ export default class PosMaterialRetailer {
     nullable: true,
   })
   employee_id: number;
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
 }

@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'distributor_products_margin',
 })
-export default class DistributorProductsMargin {
+export default class DistributorProductsMargin extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'pos_material_items',
 })
-export default class PosMaterialItem {
+export default class PosMaterialItem extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

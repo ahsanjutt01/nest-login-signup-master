@@ -40,6 +40,10 @@ export abstract class BaseAbstractRepository<T>
     return await this.entity.find();
   }
 
+  public async findAllByCondition(filterCondition: any): Promise<T[]> {
+    return await this.entity.find(filterCondition);
+  }
+
   public async remove(id: string): Promise<DeleteResult> {
     return await this.entity.delete(id);
   }

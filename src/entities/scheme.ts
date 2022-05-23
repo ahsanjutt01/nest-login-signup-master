@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'schemes',
 })
-export default class Scheme {
+export default class Scheme extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -87,20 +88,6 @@ export default class Scheme {
     length: 50,
   })
   scheme_type: string;
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: Date;
   @Column({
     name: 'updated_by',
     nullable: true,

@@ -516,6 +516,7 @@ export class OrdersService {
 
   async migrateAms(): Promise<Ams[]> {
     const data = await this.shahiAmsService.findAll();
+    console.log('data ams ', data.length);
     if (Helper.isLength(data)) {
       await Helper.saveDataInchunksIntoWherehouseDb<Ams>(data, this.amsRepo);
     }

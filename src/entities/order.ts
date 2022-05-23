@@ -9,12 +9,13 @@ import BookedOrderContent from './bookedOrderContent';
 import { OrderType } from './enums/orderType';
 
 import OrderContent from './orderContent';
+import BaseEntity from './_base.entity';
 
 // TODO: relationship
 @Entity({
   name: 'orders',
 })
-export default class Order {
+export default class Order extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -154,28 +155,12 @@ export default class Order {
   approved_at: Date;
 
   @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
-
-  @Column({
     name: 'synced_at',
     nullable: true,
     type: 'datetime',
     default: () => 'NOW()',
   })
   synced_at: Date;
-
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: Date;
 
   @Column({
     name: 'updated_by',

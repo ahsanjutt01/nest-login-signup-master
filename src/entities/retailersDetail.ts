@@ -1,9 +1,10 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'retailers_details',
 })
-export default class RetailersDetail {
+export default class RetailersDetail extends BaseEntity {
   @Index()
   @PrimaryGeneratedColumn()
   id: number;
@@ -177,26 +178,10 @@ export default class RetailersDetail {
   updated_by: number;
 
   @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
-
-  @Column({
     name: 'synced_at',
     nullable: true,
     type: 'datetime',
     default: () => 'NOW()',
   })
   synced_at: Date;
-
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: Date;
 }

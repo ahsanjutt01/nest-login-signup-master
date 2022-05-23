@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'designations',
 })
-export default class Designation {
+export default class Designation extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -42,19 +43,4 @@ export default class Designation {
     type: 'int',
   })
   updated_by: number;
-
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: Date;
 }

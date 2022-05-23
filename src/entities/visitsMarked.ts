@@ -1,10 +1,11 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 
 // TODO: relationship
 @Entity({
   name: 'visits_marked',
 })
-export default class VisitsMark {
+export default class VisitsMark extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -136,13 +137,4 @@ export default class VisitsMark {
     nullable: true,
   })
   unique_key: string;
-
-  @Index()
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
 }

@@ -1,10 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { RetailerTypes } from './enums/retailerType';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'retailer_types',
 })
-export default class RetailerType {
+export default class RetailerType extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -37,11 +38,4 @@ export default class RetailerType {
     default: () => 'NOW()',
   })
   updated_by: Date;
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: Date;
 }

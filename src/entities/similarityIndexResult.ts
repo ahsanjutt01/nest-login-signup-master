@@ -1,9 +1,10 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import BaseEntity from './_base.entity';
 // TODO: relationship
 @Entity({
   name: 'similarity_index_result',
 })
-export default class SimilarityIndexResult {
+export default class SimilarityIndexResult extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -79,19 +80,4 @@ export default class SimilarityIndexResult {
     type: 'tinyint',
   })
   job_done: number;
-  @Column({
-    name: 'created_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  created_at: Date;
-
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: Date;
 }

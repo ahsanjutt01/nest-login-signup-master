@@ -9,12 +9,13 @@ import {
 } from 'typeorm';
 import { ItemStatus } from './enums/itemStatus';
 import Order from './Order';
+import BaseEntity from './_base.entity';
 
 // TODO: relationship
 @Entity({
   name: 'order_contents',
 })
-export default class OrderContent {
+export default class OrderContent extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -350,13 +351,6 @@ export default class OrderContent {
     default: () => 'NOW()',
   })
   booking_date: Date;
-  @Column({
-    name: 'updated_at',
-    nullable: true,
-    type: 'datetime',
-    default: () => 'NOW()',
-  })
-  updated_at: Date;
   @Column({
     name: 'updated_by',
     nullable: true,
