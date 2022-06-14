@@ -1,6 +1,9 @@
-import { Column, Index } from 'typeorm';
+import { Column, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 export default class BaseEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: number;
+
   @Index()
   @Column({
     name: 'updated_at',
@@ -18,4 +21,28 @@ export default class BaseEntity {
     default: () => 'NOW()',
   })
   created_at: Date;
+
+  @Column({
+    name: 'isActive',
+    nullable: true,
+    type: 'bool',
+    width: 1,
+  })
+  isActive: boolean;
+
+  @Column({
+    name: 'isDeleted',
+    nullable: true,
+    type: 'bool',
+    width: 1,
+  })
+  isDeleted: boolean;
+
+  @Column({
+    name: 'isPurged',
+    nullable: true,
+    type: 'bool',
+    width: 1,
+  })
+  isPurged: boolean;
 }

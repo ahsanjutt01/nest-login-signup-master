@@ -4,10 +4,8 @@ import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrdersModule } from './modules/orders/orders.module';
 import entities from './entities/exportedEntities';
 import { ConfigModule } from '@nestjs/config';
-import { TasksServiceService } from './services/-tasks-service/-tasks-service.service';
 
 @Module({
   imports: [
@@ -28,27 +26,12 @@ import { TasksServiceService } from './services/-tasks-service/-tasks-service.se
         synchronize: true, // DO NOT TRUE IT IN PRODUCTION. This option migrates any new schema on app launch
       }),
     }),
-    TypeOrmModule.forRootAsync({
-      name: 'shahi',
-      useFactory: () => ({
-        type: 'mysql',
-        host: process.env.DB_HOST_2,
-        port: process.env.DB_PORT,
-        username: process.env.DB_USER_2,
-        password: process.env.DB_USER_SHAHI_PWD,
-        database: process.env.DB_NAME_SHAHI,
-        entities: entities,
-        synchronize: false, // DO NOT TRUE IT IN PRODUCTION SHAHI. This option migrates any new schema on app launch
-      }),
-    }),
-    OrdersModule,
   ],
   providers: [
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
     },
-    TasksServiceService,
   ],
   controllers: [],
 })
