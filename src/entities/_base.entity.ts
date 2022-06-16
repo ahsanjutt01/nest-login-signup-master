@@ -1,48 +1,51 @@
-import { Column, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Index, PrimaryGeneratedColumn } from "typeorm";
 
 export default class BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @Index()
   @Column({
-    name: 'updated_at',
+    name: "updated_at",
     nullable: false,
-    type: 'datetime',
-    default: () => 'NOW()',
+    type: "datetime",
+    default: () => "NOW()",
   })
   updated_at: Date;
 
   @Index()
   @Column({
-    name: 'created_at',
+    name: "created_at",
     nullable: false,
-    type: 'datetime',
-    default: () => 'NOW()',
+    type: "datetime",
+    default: () => "NOW()",
   })
   created_at: Date;
 
   @Column({
-    name: 'isActive',
+    name: "isActive",
     nullable: true,
-    type: 'bool',
+    type: "bool",
     width: 1,
+    default: true,
   })
   isActive: boolean;
 
   @Column({
-    name: 'isDeleted',
+    name: "isDeleted",
     nullable: true,
-    type: 'bool',
+    type: "bool",
     width: 1,
+    default: false,
   })
   isDeleted: boolean;
 
   @Column({
-    name: 'isPurged',
+    name: "isPurged",
     nullable: true,
-    type: 'bool',
+    type: "bool",
     width: 1,
+    default: false,
   })
   isPurged: boolean;
 }

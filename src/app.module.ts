@@ -6,26 +6,28 @@ import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import entities from "./entities/exportedEntities";
 import { ConfigModule } from "@nestjs/config";
+import { AuthModule } from "./modules/live/auth/auth.module";
 
 @Module({
   imports: [
     // ScheduleModule.forRoot(),
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRootAsync({
-      // name: process.env.DATABASE_WHEREHOUSE_CONNECTION_NAME,
-      useFactory: () => ({
-        type: "mysql",
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
-        entities: entities,
-        synchronize: true, // DO NOT TRUE IT IN PRODUCTION. This option migrates any new schema on app launch
-      }),
-    }),
+    // ConfigModule.forRoot({
+    //   isGlobal: true,
+    // }),
+    // TypeOrmModule.forRootAsync({
+    //   // name: process.env.DATABASE_WHEREHOUSE_CONNECTION_NAME,
+    //   useFactory: () => ({
+    //     type: "mysql",
+    //     host: process.env.DB_HOST,
+    //     port: process.env.DB_PORT,
+    //     username: process.env.DB_USER,
+    //     password: process.env.DB_PASSWORD,
+    //     database: process.env.DB_NAME,
+    //     entities: entities,
+    //     synchronize: true, // DO NOT TRUE IT IN PRODUCTION. This option migrates any new schema on app launch
+    //   }),
+    // }),
+    AuthModule,
   ],
   providers: [
     {
