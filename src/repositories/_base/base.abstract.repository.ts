@@ -1,5 +1,5 @@
-import { BaseInterfaceRepository } from './base.interface.repository';
-import { DeleteResult, Repository } from 'typeorm';
+import { BaseInterfaceRepository } from "./base.interface.repository";
+import { DeleteResult, Repository } from "typeorm";
 
 export abstract class BaseAbstractRepository<T>
   implements BaseInterfaceRepository<T>
@@ -18,8 +18,11 @@ export abstract class BaseAbstractRepository<T>
     return await this.entity.findOne({ where: filterCondition });
   }
 
-  public async findByCondition(filterCondition: any): Promise<T> {
-    return await this.entity.findOne({ where: filterCondition });
+  public async findByCondition(options: any): Promise<T> {
+    return await this.entity.findOne({
+      select: options.select,
+      where: options.where,
+    });
   }
 
   public async findWithRelations(relations: string[]): Promise<T[]> {
@@ -28,7 +31,7 @@ export abstract class BaseAbstractRepository<T>
 
   public async findByConditionWithRelations(
     filterCondition: T | any,
-    relations: string[],
+    relations: string[]
   ): Promise<T[]> {
     return await this.entity.find({
       where: filterCondition,

@@ -9,7 +9,7 @@ import {
   HttpException,
   HttpStatus,
   InternalServerErrorException,
-} from '@nestjs/common';
+} from "@nestjs/common";
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -32,14 +32,18 @@ export class AllExceptionsFilter implements ExceptionFilter {
         statusCode: status,
         path: request.url,
         errorType: type,
-        errorMessage: message
+        errorMessage: message,
       });
     };
 
     // Throw an exceptions for either
     // MongoError, ValidationError, TypeError, CastError and Error
     if (exception.message) {
-      responseMessage("Error", exception.message);
+      if (exception.message === "Bad Request Exception") {
+        responseMessage("Unprocessable Entities", exception.getResponse());
+      } else {
+        responseMessage("Error", exception.message);
+      }
     } else {
       responseMessage(exception.name, exception.message);
     }

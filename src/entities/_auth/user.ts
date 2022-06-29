@@ -1,18 +1,21 @@
 import {
   Column,
   Entity,
+  Index,
   JoinColumn,
   JoinTable,
   ManyToOne,
   OneToMany,
 } from "typeorm";
+import Business from "../business.entity";
+import {
+  EmailVarification,
+  LisceneType,
+  SignupMedium,
+  UserType,
+} from "../enums/user";
 import BaseEntity from "../_base.entity";
-import Brand from "../_product/brand";
-import Pack from "../_product/pack";
-import Product from "../_product/product";
-import Size from "../_product/size";
-import UserType from "./userType";
-// TODO: relationship
+// TOq: relationship
 @Entity({
   name: "users",
 })
@@ -21,13 +24,21 @@ export default class User extends BaseEntity {
   // id: string;
 
   @Column({
-    name: "fullName",
+    name: "first_name",
     nullable: false,
     type: "varchar",
     length: 100,
   })
-  fullName: string;
+  first_name: string;
+  @Column({
+    name: "last_name",
+    nullable: false,
+    type: "varchar",
+    length: 100,
+  })
+  last_name: string;
 
+  @Index()
   @Column({
     name: "email",
     nullable: false,
@@ -53,12 +64,22 @@ export default class User extends BaseEntity {
   phone: string;
 
   @Column({
-    name: "address",
+    name: "signup_medium",
     nullable: false,
-    type: "varchar",
-    length: 255,
+    type: "enum",
+    enum: SignupMedium,
+    default: SignupMedium.EMAIL,
   })
-  address: string;
+  signup_medium: SignupMedium;
+
+  @Column({
+    name: "liscene_type",
+    nullable: false,
+    type: "enum",
+    enum: LisceneType,
+    default: LisceneType.FREE,
+  })
+  liscene_type: LisceneType;
 
   @Column({
     name: "agree",
@@ -68,52 +89,70 @@ export default class User extends BaseEntity {
   })
   agree: boolean;
 
+  @Index()
   @Column({
-    name: "isApproved",
-    nullable: true,
-    type: "bool",
-    width: 1,
-    default: true,
-  })
-  isApproved: boolean;
-
-  @Column({
-    name: "userTypeId",
+    name: "dob",
     nullable: false,
+    type: "datetime",
+    default: () => "NOW()",
   })
-  userTypeId: string;
+  dob: Date;
 
-  // user type relationship
-  @ManyToOne(() => UserType, (userType) => userType.users)
-  @JoinColumn({ name: "userTypeId", referencedColumnName: "id" })
-  @JoinTable({ name: "user_types" })
+  @Column({
+    name: "email_verfication",
+    nullable: true,
+    type: "enum",
+    enum: EmailVarification,
+    default: EmailVarification.PENDING,
+  })
+  email_verfication: boolean;
+  @Column({
+    name: "userType",
+    nullable: false,
+    type: "enum",
+    enum: UserType,
+    default: UserType.CLIENT,
+  })
   userType: UserType;
 
   // Prodcuts
-  @OneToMany(() => Product, (product) => product.user, {
+  @OneToMany(() => Business, (product) => product.user, {
     cascade: true,
   })
   @JoinTable({ name: "products" })
-  products: Product[];
+  businesses: Business[];
+
+  // user type relationship
+  // @ManyToOne(() => UserType, (userType) => userType.users)
+  // @JoinColumn({ name: "userTypeId", referencedColumnName: "id" })
+  // @JoinTable({ name: "user_types" })
+  // userType: UserType;
+
+  // Prodcuts
+  // @OneToMany(() => Product, (product) => product.user, {
+  //   cascade: true,
+  // })
+  // @JoinTable({ name: "products" })
+  // products: Product[];
 
   // packs
-  @OneToMany(() => Pack, (pack) => pack.user, {
-    cascade: true,
-  })
-  @JoinTable({ name: "packs" })
-  packs: Pack[];
+  // @OneToMany(() => Pack, (pack) => pack.user, {
+  //   cascade: true,
+  // })
+  // @JoinTable({ name: "packs" })
+  // packs: Pack[];
 
   // size
-  @OneToMany(() => Size, (size) => size.user, {
-    cascade: true,
-  })
-  @JoinTable({ name: "sizes" })
-  sizes: Size[];
+  // @OneToMany(() => Size, (size) => size.user, {
+  //   cascade: true,
+  // })
+  // @JoinTable({ name: "sizes" })
+  // sizes: Size[];
 
   // size
-  @OneToMany(() => Brand, (brand) => brand.user, {
-    cascade: true,
-  })
-  @JoinTable({ name: "sizes" })
-  brands: Brand[];
+  // @OneToMany(() => Brand, (brand) => brand.user, {
+  //   cascade: true,
+  // })
+  // @JoinTable({ name: "sizes" })
+  // brands: Brand[];
 }

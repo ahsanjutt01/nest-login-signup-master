@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Post, UseFilters } from "@nestjs/common";
 import { ApiBody, ApiTags } from "@nestjs/swagger";
 
-import { UserDto } from "src/dto/user.dto";
+import { LoginDto, UserDto } from "src/dto/user.dto";
+import { BadRequestExceptionFilter } from "src/exception-handling/BadRequestExceptionFilter";
 import { AuthService } from "src/services/live/auth/auth.service";
 
 @Controller("auth")
@@ -13,5 +14,9 @@ export class AuthController {
   @ApiBody({ type: UserDto })
   async signup(@Body() user: UserDto) {
     return await this.authService.create(user);
+  }
+  @Post("login")
+  async login(@Body() userCred: LoginDto) {
+    return await this.authService.login(userCred);
   }
 }

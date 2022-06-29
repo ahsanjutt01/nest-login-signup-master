@@ -1,9 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { AuthModule } from "./live/auth/auth.module";
-import { ProductModule } from "./live/product/product.module";
-
+import { BusinessModule } from "./live/business/business.module";
 import entities from "../entities/exportedEntities";
 
 /**
@@ -26,6 +24,7 @@ import entities from "../entities/exportedEntities";
         synchronize: true, // DO NOT TRUE IT IN PRODUCTION. This option migrates any new schema on app launch
       }),
     }),
+    BusinessModule,
   ],
 })
 export class MysqlDatabaseProviderModule {}

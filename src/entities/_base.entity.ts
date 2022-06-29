@@ -1,4 +1,5 @@
 import { Column, Index, PrimaryGeneratedColumn } from "typeorm";
+import { UserStatus } from "./enums/user";
 
 export default class BaseEntity {
   @PrimaryGeneratedColumn("uuid")
@@ -23,29 +24,38 @@ export default class BaseEntity {
   created_at: Date;
 
   @Column({
-    name: "isActive",
-    nullable: true,
-    type: "bool",
-    width: 1,
-    default: true,
+    name: "status",
+    nullable: false,
+    type: "enum",
+    enum: UserStatus,
+    default: UserStatus.ACTIVE,
   })
-  isActive: boolean;
+  status: UserStatus;
 
-  @Column({
-    name: "isDeleted",
-    nullable: true,
-    type: "bool",
-    width: 1,
-    default: false,
-  })
-  isDeleted: boolean;
+  // @Column({
+  //   name: "isActive",
+  //   nullable: true,
+  //   type: "bool",
+  //   width: 1,
+  //   default: true,
+  // })
+  // isActive: boolean;
 
-  @Column({
-    name: "isPurged",
-    nullable: true,
-    type: "bool",
-    width: 1,
-    default: false,
-  })
-  isPurged: boolean;
+  // @Column({
+  //   name: "isDeleted",
+  //   nullable: true,
+  //   type: "bool",
+  //   width: 1,
+  //   default: false,
+  // })
+  // isDeleted: boolean;
+
+  // @Column({
+  //   name: "isPurged",
+  //   nullable: true,
+  //   type: "bool",
+  //   width: 1,
+  //   default: false,
+  // })
+  // isPurged: boolean;
 }

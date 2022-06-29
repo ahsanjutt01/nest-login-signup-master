@@ -1,15 +1,18 @@
-import { APP_FILTER } from "@nestjs/core";
+import { APP_FILTER, APP_INTERCEPTOR } from "@nestjs/core";
 import { AllExceptionsFilter } from "./filters/exception.filter";
 import { Module } from "@nestjs/common";
 // import { ScheduleModule } from "@nestjs/schedule";
 
-import { TypeOrmModule } from "@nestjs/typeorm";
-import entities from "./entities/exportedEntities";
-import { ConfigModule } from "@nestjs/config";
 import { AuthModule } from "./modules/live/auth/auth.module";
+import { LoggingInterceptor } from "./interceptors/logging.interceptor";
+import { join } from "path";
+import { ServeStaticModule } from "@nestjs/serve-static";
 
 @Module({
   imports: [
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, "public"),
+    // }),
     // ScheduleModule.forRoot(),
     // ConfigModule.forRoot({
     //   isGlobal: true,
@@ -28,13 +31,22 @@ import { AuthModule } from "./modules/live/auth/auth.module";
     //   }),
     // }),
     AuthModule,
+    // BusinessModule,
   ],
   providers: [
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
     },
+
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: BadRequestExceptionFilter,
+    // },
   ],
-  controllers: [],
 })
 export class AppModule {}
